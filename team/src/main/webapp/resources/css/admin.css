@@ -1,0 +1,85 @@
+
+button, button:active, button:checked, button:focus, button:hover, button:visited {border:none;outline: 0;outline-offset: 0;line-height: 35px;padding: 0 15px;border-radius: 5px;}
+    
+/* 페이지 내 카운트 */
+.local_ov {min-width:960px}
+.local_ov01 {position:relative;margin: 10px 0;}
+.local_ov01 .ov_a{display:inline-block;line-height:30px;height:30px;font-size:0.92em;background:#ff4081;color:#fff;vertical-align:top;border-radius:5px;padding:0 7px}
+.local_ov01 .ov_a:hover{background:#ff1464}
+.btn_ov01{display:inline-block;line-height:30px;height:30px;font-size:0.92em;vertical-align:top}
+.btn_ov01:after{display:block;visibility:hidden;clear :both;content:""}
+.btn_ov01 .ov_txt{float:left;background:#9eacc6;color:#fff;border-radius:5px 0 0 5px;padding:0 5px}
+.btn_ov01 .ov_num{float:left;background:#fff;color:#666;border-radius:0 5px 5px 0;padding:0 5px}
+a.btn_ov02,a.ov_listall{display:inline-block;line-height:30px;height:30px;font-size:0.92em;background:#565e8c;color:#fff;vertical-align:top;border-radius:5px;padding:0 7px }
+a.btn_ov02:hover,a.ov_listall:hover{background:#3f51b5}
+    
+/*form*/
+.sound_only {display:inline-block !important;position:absolute;top:0;left:0;margin:0 !important;padding:0 !important;width:1px !important;height:1px !important;font-size:0;line-height:0;border:0 !important;overflow:hidden !important}
+.frm_input{height:35px;line-height:32px;border:1px solid #d5d5d5;}
+.frm_input_full{width:100%}
+.required{background:url('/img/wrest.gif') top right no-repeat #fff !important}
+select{height:35px;line-height:32px;border:1px solid #d5d5d5;}
+textarea{width:100%;border:1px solid #d5d5d5;min-height:80px}
+legend {position:absolute;width:0;height:0;font-size:0;line-height:0;text-indent:-9999em;border:0;overflow:hidden}
+.code_input{font:bold 15px Consolas}
+.local_sch01 .frm_input {height: 35px;border: 1px solid #dcdcdc;padding: 0 5px;}
+    .btn_submit{color: #fff;
+    background-color: #34426f;
+    border-color: #303c66;}
+    
+#seller_wrap{display: grid; grid-template-columns: 250px 1fr;grid-template-rows:60px calc(100vh - 60px);}
+#seller_wrap .item1 {grid-column-start: 1; grid-column-end: 3;}
+#seller_wrap #seller_top{display: flex; justify-content: space-between; align-items: center;background: #2d3539;padding: 25px; color: #fff;}
+#seller_wrap #seller_top a{padding:25px; color: #fff;}
+#seller_wrap #seller_top .seller_top_right span{margin-left: 20px;}
+#seller_wrap #seller_top .seller_top_right span button{color: #fff;}
+#seller_wrap #seller_lnb{background: #3f4b5c; color: #fff;}
+#seller_wrap #seller_lnb a{color: #fff;}
+#seller_lnb .store {padding: 20px 25px 28px;text-align: center;background-color: #3f4b5c;color: #fff;}
+#seller_lnb .store a{font-size: 30px; font-weight: 900;}
+#seller_lnb .store a span{color: #ccda2b;}
+#seller_lnb .seller_menu{}
+#seller_lnb .seller_menu > li{width: 100%;line-height: 53px;background-color: #272c36;color:white;}
+#seller_lnb .seller_menu > li a{padding:25px 20px; cursor: pointer;}
+#seller_lnb .seller_menu > li .seller_menu_con{width: 100%;max-height: 0px;overflow: hidden;transition: max-height 1s;}
+#seller_lnb .seller_menu .seller_menu_con a{padding:5px 25px;}
+#seller_lnb .seller_menu .seller_menu_con.on{max-height: 500px;transition: max-height 2s;}
+#seller_lnb .seller_menu .seller_menu_con li{width: 100%;}
+#seller_lnb .seller_menu .seller_menu_con li a{display: block;padding: 5px 25px 9px;width: 100%;line-height: 34px;background-color: #3f4b5c;color:white; box-sizing: border-box;}
+#seller_wrap #seller_content{padding: 25px; background: rgb(237, 240, 245); }
+
+.formTitle { background: url('/images/titledot.gif') no-repeat; margin-top:15px; padding:6px 0px 0px 22px;	font-size:17px; font-weight:700; letter-spacing:-1px; margin-bottom:10px;}
+.formTitle span { font-size:13px; font-weight:100; letter-spacing: -1px; color: #6D6D6D; padding-left: 10px;  }
+.formTitle .btn { float:right;  }
+	
+table.listTbl { width:100%; border-spacing:1px; padding:0px; background:#E6E6E6; overflow:hidden; } 9F9; text-align:center; white-space: nowrap; }
+table.listTbl td { font-size:13px; color: #3F3F3F; padding: 10px 0;   }
+table.listTbl tbody tr { text-align:center; background:#ffffff; }
+table.listTbl tbody tr:hover { background:#F9F9FD; }
+table.listTbl .noneData { 	background:#FFFFFF; white-space:nowrap; text-overflow : ellipsis; overflow : hidden; 	letter-spacing: 0; padding: 30px 0; line-height:20px; text-align:center; color:#804040; }
+table.listTbl .listTitle { font-weight:800; letter-spacing: -1px; color: #3F3F3F; padding: 13px 0 13px 0; }
+table.listTbl .listData { color: #171717;  white-space:nowrap; text-overflow : ellipsis; overflow : hidden; 	padding: 10px 0; }
+table.listTbl .listDataTitle { color: #171717; white-space:nowrap; text-overflow : ellipsis; overflow : hidden; 	padding: 10px 0 10px 10px; }
+table.listTbl .listDataTitle .tit{font-weight: bold; color:#52698B;}
+table.listTbl .listDataTitle a { color: #131313; }
+table.listTbl .listData2 { color: #171717;  padding: 10px 5px; }
+table.listTbl .dataCell { color: #171717;  padding: 10px 0; }
+table.listTbl .inputCell { color: #171717;  padding: 3px; }
+table.listTbl .totalData { padding-top:10px; padding-bottom:10px; white-space:nowrap; text-overflow : ellipsis; overflow : hidden; }
+table.listTbl .tblListData { padding-left:10px; }
+table.listTbl .nBtn { display:inline-block; background:#52B4FC; border:0px solid #1B9BFB; border-radius:4px; padding:0px 2px; font-family: 'Noto Sans KR', sans-serif; font-size:12px; color:#FFFFFF; }
+table.listTbl .eBtn { display:inline-block; background:#FF9191; border:0px solid #FF6262; border-radius:4px; padding:0px 2px; font-family: 'Noto Sans KR', sans-serif; font-size:12px; color:#FFFFFF; }
+
+table.dataTbl { width:100%; border-spacing:1px; padding:0px; }
+table.dataTbl th { letter-spacing: -1px; color: #3F3F3F; text-align:center; padding: 2px 0 2px 0; }
+table.dataTbl td { padding: 2px 2px; }
+table.dataTbl .listData { letter-spacing: 0px; white-space:nowrap; text-overflow : ellipsis; overflow : hidden; padding: 6px 0 6px 0; }
+table.dataTbl .dataCell { line-height:25px; font-weight:500; letter-spacing:0px !important; }
+
+table.listTbl th {font-size: 13px;letter-spacing: -1px;color: #171717;padding: 7px 0;background: #F9F9F9;text-align: center;white-space: nowrap;}
+
+
+.adBtn{margin-bottom:10px;}
+.adBtn button{line-height: 35px; width: 100px; margin-right: 10px; text-align: center; border-radius: 5px;}
+.adBtn .adbtn1{background: #E91E63; color: #fff;}
+.adBtn .adbtn2{background: #1a55e3; color: #fff;}

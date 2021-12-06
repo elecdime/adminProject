@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.mappers.AProductMapper">
+
+
+	<select id="productList"
+		resultType="com.team.domain.AProductDTO">
+		select
+		goodsNo,
+		goodsNm,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		cateCode,
+		gdsThumbImg,
+		imagePath
+		
+		FROM Product order
+		by goodsNo desc limit #{startRow}, #{pageSize}
+
+	</select>
+
+
+	<select id="getProductCount" resultType="java.lang.Integer">
+		select count(*) from
+		product
+	</select>
+
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.team.domain.CartegoryDTO">
+		WITH recursive cte AS (
+		SELECT
+		cateName, cateCode, cateCodeRef, 1 AS level
+		FROM goods_category
+		WHERE
+		cateCodeRef IS null
+		UNION all
+		SELECT p.cateName, p.cateCode,
+		p.cateCodeRef, 1 + LEVEL AS level
+		FROM goods_category p
+		INNER JOIN cte
+		ON p.cateCodeRef = cte.cateCode
+		)
+		SELECT cateName, cateCode,
+		cateCodeRef, LEVEL FROM cte;
+	</select>
+
+	<insert id="insertProduct">
+		INSERT INTO product
+		(
+		goodsNm,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		cateCode,
+		goodsMustInfo,
+		gdsThumbImg,
+		imagePath
+		) VALUES
+		(
+		#{goodsNm},
+		#{makerNm},
+		#{originNm},
+		#{goodsModelNo},
+		#{makeYmd},
+		#{totalStock},
+		#{fixedPrice},
+		#{goodsPrice},
+		#{regDt},
+		#{modDt},
+		#{cateCode},
+		#{goodsMustInfo},
+		#{gdsThumbImg},
+		#{imagePath}
+		
+		)
+
+
+	</insert>
+	<select id="productView" resultType="com.team.domain.AProductDTO">
+	select 
+		
+		goodsNm,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		cateCode,
+		goodsMustInfo,
+		gdsThumbImg,
+		imagePath
+	from product
+	where goodsNo=#{goodsNo}
+	</select>
+	
+
+
+</mapper>
