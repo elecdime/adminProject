@@ -35,7 +35,7 @@
 		product
 	</select>
 
-	<!-- 카테고리 호출 -->
+
 	<select id="category" resultType="com.team.domain.CartegoryDTO">
 		WITH recursive cte AS (
 		SELECT
@@ -92,10 +92,13 @@
 
 
 	</insert>
-	<select id="productView" resultType="com.team.domain.AProductDTO">
+	<select id="productView" resultType="com.team.domain.ProductViewDTO">
 	select 
-		
-		goodsNm,
+		p.goodsNo,
+		p.goodsNm,
+		c.cateCode,
+		c.cateName,
+		c.cateCodeRef,
 		makerNm,
 		originNm,
 		goodsModelNo,
@@ -105,14 +108,34 @@
 		goodsPrice,
 		regDt,
 		modDt,
-		cateCode,
+		p.cateCode,
 		goodsMustInfo,
 		gdsThumbImg,
 		imagePath
-	from product
-	where goodsNo=#{goodsNo}
+	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
+		WHERE p.goodsNo =#{goodsNo}
 	</select>
-	
 
 
+<delete id="goodsDelete">
+ delete
+  from product
+ where goodsNo = #{goodsNo}
+</delete>
+<update id ="productUpdate">
+		UPDATE product set
+		goodsNm =#{goodsNm},
+		makerNm =#{makerNm},
+		originNm=#{originNm},
+		goodsModelNo =#{goodsModelNo},
+		makeYmd =#{makeYmd},
+		totalStock =#{totalStock},
+		fixedPrice  =#{fixedPrice},
+		goodsPrice = #{goodsPrice},
+		modDt =#{modDt},
+		cateCode =#{cateCode},
+		goodsMustInfo =#{goodsMustInfo}
+		WHERE goodsNo =${goodsNo}
+
+</update>
 </mapper>

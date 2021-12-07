@@ -11,6 +11,7 @@ import com.team.dao.AProductDAO;
 import com.team.domain.APageDTO;
 import com.team.domain.AProductDTO;
 import com.team.domain.CartegoryDTO;
+import com.team.domain.ProductViewDTO;
 
 @Service
 public class AProductServcieImpl implements AProductServcie {
@@ -42,8 +43,20 @@ public class AProductServcieImpl implements AProductServcie {
 		
 		aProductDAO.insertProduct(aProductDTO);
 	}@Override
-	public AProductDTO productView(int goodsNo) {
+	public ProductViewDTO productView(int goodsNo) {
 		// TODO Auto-generated method stub
 		return aProductDAO.productView(goodsNo);
+	}
+	@Override
+	public void productUpdate(AProductDTO aProductDTO) {
+		// TODO Auto-generated method stub
+		Timestamp date = new Timestamp(System.currentTimeMillis());
+		aProductDTO.setModDt(date);
+		aProductDAO.productUpdate(aProductDTO);
+	}
+	@Override
+	public void goodsDelete(int goodsNo) {
+		// TODO Auto-generated method stub
+		aProductDAO.goodsDelete(goodsNo);
 	}
 }

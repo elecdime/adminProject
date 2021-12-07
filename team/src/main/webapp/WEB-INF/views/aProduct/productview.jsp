@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +11,13 @@
 	href="${pageContext.request.contextPath}/resources/css/reset.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/admin.css">
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <style type="text/css">
-
-.originImg{width: 500px; height: auto;}
-
+.originImg {
+	width: 500px;
+	height: auto;
+}
 </style>
 </head>
 
@@ -101,64 +103,51 @@
 			 -->
 
 				<form role="form" method="post" autocomplete="off">
-
+					<input type="hidden" name="n" value="${goods.goodsNo}" />
 					<div class="inputArea">
 						<label>1차 분류</label> <span class="category1"></span> <label>2차
 							분류</label> <span class="category2">${goods.cateCode}</span>
-					</div></div>
+					</div>
+			</div>
 
-					<div class="inputArea">
-					 <label for="goodsNm">상품명</label> 
-					 <span>${goods.goodsNm}</span>
-							
-							
-							<label for="makerNm">제조사</label>
-							<span>${goods.makerNm}</span>
-						
-						<label
-							for="originNm">원산지</label> 
-							<span>${goods.originNm}</span>
-					</div>
+			<div class="inputArea">
+				<label for="goodsNm">상품명</label> <span>${goods.goodsNm}</span> <label
+					for="makerNm">제조사</label> <span>${goods.makerNm}</span> <label
+					for="originNm">원산지</label> <span>${goods.originNm}</span>
+			</div>
 
-					<div class="inputArea">
-						<label for="goodsModelNo">모델명</label>
-								<span>${goods.goodsModelNo}</span>
-							
-							 <label for="goodsPrice">상품가격</label>
-								<span>${goods.goodsPrice}</span>
-						 <label
-							for="fixedPrice">정가</label> 
-							<span>${goods.fixedPrice}</span>
-							
-					</div>
+			<div class="inputArea">
+				<label for="goodsModelNo">모델명</label> <span>${goods.goodsModelNo}</span>
 
-					<div class="inputArea">
-						<label for="totalStock">상품수량</label> 
-						<span>${goods.totalStock}</span>
+				<label for="goodsPrice">상품가격</label> <span>${goods.goodsPrice}</span>
+				<label for="fixedPrice">정가</label> <span>${goods.fixedPrice}</span>
 
-					</div>
-				
-					<div class="inputArea">
-						<label for="makeYmd">제조일</label>
-						<span>${goods.makeYmd}</span>
-					</div>
+			</div>
 
-				<div class="inputArea">
-				
-						<label for="goodsMustInfo">내용</label>
-						<span>${goods.goodsMustInfo}</span>
-				
-					</div>
-					<div class="inputArea">
-					 <label for="imagePath">이미지</label>
- 					<p>원본 이미지</p>
- 					<img src="${goods.imagePath}" class="originImg"/>
- 
- 						<p>썸네일</p>
- 				<img src="${goods.gdsThumbImg}" class="thumbImg"/>
-					</div>
-				
-		
+			<div class="inputArea">
+				<label for="totalStock">상품수량</label> <span>${goods.totalStock}</span>
+
+			</div>
+
+			<div class="inputArea">
+				<label for="makeYmd">제조일</label> <span>${goods.makeYmd}</span>
+			</div>
+
+			<div class="inputArea">
+
+				<label for="goodsMustInfo">내용</label> <span>${goods.goodsMustInfo}</span>
+
+			</div>
+			<div class="inputArea">
+				<label for="imagePath">이미지</label>
+				<p>원본 이미지</p>
+				<img src="${goods.imagePath}" class="originImg" />
+
+				<p>썸네일</p>
+				<img src="${goods.gdsThumbImg}" class="thumbImg" />
+			</div>
+
+
 
 			<!-- 		</div>
 
@@ -183,17 +172,37 @@
 
 
 
-					</div>
-
-					<div class="inputArea">
-						<button type="submit" id="adBtn" class="adBtn">등록</button>
-					</div>
-
-				</form>
-
-			</div>
-
 		</div>
+
+		<div class="inputArea">
+			<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+			<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+
+			<script>
+  			var formObj = $("form[role='form']");
+  
+  				$("#modify_Btn").click(function(){
+ 				  formObj.attr("action", "/aProduct/productupdate");
+  					 formObj.attr("method", "get")
+  					 formObj.submit();
+ 					 });
+  				$("#delete_Btn").click(function(){
+  					 
+  					 var con = confirm("정말로 삭제하시겠습니까?");
+  					 
+  					 if(con) {      
+  					  formObj.attr("action", "/aProduct/deleteproduct");
+  					  formObj.submit();
+  					 }
+  					});
+ </script>
+		</div>
+
+		</form>
+
+	</div>
+
+	</div>
 	</div>
 	<!--  seller_wrap  -->
 

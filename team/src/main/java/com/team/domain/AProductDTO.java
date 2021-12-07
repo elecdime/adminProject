@@ -31,6 +31,25 @@ public class AProductDTO {
 	private int reviewCnt;
 	private String cateCode;
 	private String gdsThumbImg;
+	private String cateName;
+
+	public String getCateName() {
+		return cateName;
+	}
+
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+
+	public String getCateCodeRef() {
+		return cateCodeRef;
+	}
+
+	public void setCateCodeRef(String cateCodeRef) {
+		this.cateCodeRef = cateCodeRef;
+	}
+
+	private String cateCodeRef;
 	public String getGdsThumbImg() {
 		return gdsThumbImg;
 	}

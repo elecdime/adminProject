@@ -33,8 +33,8 @@
                 <li>
                     <a class="seller_menu_tit">상품관리</a>
                     <ol class="seller_menu_con">
-                        <li><a href="'${pageContext.request.contextPath}/aProduct/product'">상품관리</a></li>
-                        <li><a href="#">submenu02</a></li>
+                        <li><a href="/aProduct/product">상품관리</a></li>
+                        <li><a href="/aProduct/productinsert">상품등록</a></li>
                     </ol>
                 </li>
                 <li>
@@ -129,8 +129,7 @@
 	</colgroup>
 	<tbody>
 		<tr align="center" bgcolor="#5e718f">
-			<th class="listTitle"><input type="checkbox" name="allcheck"
-				value="1" onclick=""></th>
+		
 			<th class="listTitle">이미지</th>
 			<th class="listTitle">상품번호</th>
 	
@@ -150,7 +149,7 @@
 
 		<c:forEach var="aProductDTO" items="${productList }">
 			<tr>
-				<td class="listData"><input type="checkbox" name="" value=""></td>
+		
 				
  							
  					<td class="listData">	<img src="${aProductDTO.gdsThumbImg}" class="thumbImg"/>
@@ -192,7 +191,7 @@
 			<a
 				href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage+pageDTO.pageBlock}">[다음]</a>
 		</c:if>
-		  <div class="adBtn"><button class="adbtn1" onclick="location.href='${pageContext.request.contextPath}/aEvent/newCoupon'" >상품수정</button></div>
+
                        <div class="adBtn"><button class="adbtn1" onclick="location.href='${pageContext.request.contextPath}/aProduct/productinsert'" >상품등록</button></div>
                 </form>
             </div>

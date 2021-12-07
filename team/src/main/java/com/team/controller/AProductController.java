@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.team.domain.APageDTO;
 import com.team.domain.AProductDTO;
 import com.team.domain.CartegoryDTO;
+import com.team.domain.ProductViewDTO;
 import com.team.service.AProductServcie;
 import com.team.utils.UploadFilesUtils;
 
@@ -110,12 +113,44 @@ public class AProductController {
 	@RequestMapping(value = "/aProduct/productview", method = RequestMethod.GET)
 	public void Productview(@RequestParam("n")int goodsNo, Model model) throws Exception {
 
-		 AProductDTO goods = aProductServcie.productView(goodsNo);
+			ProductViewDTO goods = aProductServcie.productView(goodsNo);
 		 model.addAttribute("goods",goods);
 	
-}
+		 
+		 
+		 
 }
 	
+	@RequestMapping(value = "/aProduct/productupdate", method = RequestMethod.GET)
+	public void Productupdate(@RequestParam("n")int goodsNo, Model model) throws Exception {
+
+		ProductViewDTO goods = aProductServcie.productView(goodsNo);
+		 model.addAttribute("goods",goods);
+		 
+		 List<CartegoryDTO> category = null;
+		 category = aProductServcie.category();
+		 
+		 model.addAttribute("category", JSONArray.fromObject(category));
+		 System.out.println(category);
+}
+	@RequestMapping(value = "/aProduct/productupdate", method = RequestMethod.POST)
+	public String productupdate(AProductDTO aProductDTO) throws Exception {
+
+		aProductServcie.productUpdate(aProductDTO);
+		return "redirect:/aProduct/product";
+	
+}
+	@RequestMapping(value = "/aProduct/deleteproduct", method = RequestMethod.POST)
+	public String postGoodsDelete(@RequestParam("n") int gdsNum) throws Exception {
+	 
+
+	 aProductServcie.goodsDelete(gdsNum);
+	 
+	 return "redirect:/aProduct/product";
+	}
+	
+}
+
 	
 	
 

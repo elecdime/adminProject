@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.team.domain.APageDTO;
 import com.team.domain.AProductDTO;
 import com.team.domain.CartegoryDTO;
+import com.team.domain.ProductViewDTO;
 
 @Repository
 public class AProductDAOImpl implements AProductDAO {
@@ -37,8 +38,18 @@ public void insertProduct(AProductDTO aProductDTO) {
 	 	sqlSession.insert(namespace+".insertProduct",aProductDTO);
 }
 @Override
-public AProductDTO productView(int goodsNo) {
+public ProductViewDTO productView(int goodsNo) {
 	// TODO Auto-generated method stub
 	return sqlSession.selectOne(namespace+".productView",goodsNo);
+}
+@Override
+public void productUpdate(AProductDTO aProductDTO) {
+	// TODO Auto-generated method stub
+	sqlSession.update(namespace+".productUpdate",aProductDTO);
+}
+@Override
+public void goodsDelete(int goodsNo) {
+	// TODO Auto-generated method stub
+	sqlSession.delete(namespace+".goodsDelete",goodsNo);
 }
 }
