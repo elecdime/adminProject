@@ -17,7 +17,7 @@ public class AProductDTO {
 	private String goodsWeight;
 	private String totalStock;
 	private String soldOutFl;
-	private Timestamp salesStartYmd;
+	private String salesStartYmd;
 	private String goodsPrice;
 	private String fixedPrice;
 	private String shortDescription;
@@ -178,11 +178,11 @@ public class AProductDTO {
 		this.soldOutFl = soldOutFl;
 	}
 
-	public Timestamp getSalesStartYmd() {
+	public String getSalesStartYmd() {
 		return salesStartYmd;
 	}
 
-	public void setSalesStartYmd(Timestamp salesStartYmd) {
+	public void String(String salesStartYmd) {
 		this.salesStartYmd = salesStartYmd;
 	}
 

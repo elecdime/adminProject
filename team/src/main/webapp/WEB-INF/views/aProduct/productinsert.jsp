@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/admin.css">
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
+
 </head>
 
 
@@ -107,7 +110,7 @@
 					<div class="inputArea">
 					<label>상품명</label> 
 					 <input type="text" name ="goodsNm">
-				
+					
 							
 							
 							<label for="makerNm">제조사</label>
@@ -135,6 +138,35 @@
 							 <input type="text" name ="totalStock">
 
 					</div>
+				<div class="inputArea">
+						<label for="goodsWeight">상품 무게</label> 
+							 <input type="text" name ="goodsWeight">
+
+					</div>
+					<div class="inputArea">
+						<label for="salesStartYmd">상품 판매 시작일</label> 
+							 <input type="text" name ="salesStartYmd">
+
+					</div>
+				<div class="inputArea">
+						<label for="shortDescription">짧은 설명</label> 
+							 <input type="text" name ="shortDescription">
+
+					</div>
+					<div class="inputArea">
+						<label for="goodsDescription">상품 설명</label> 
+							 <input type="text" name ="goodsDescription">
+
+					</div>
+					
+
+					</div>
+					<div class="inputArea">
+						<label for="memo">메모</label> 
+							 <input type="text" name ="memo">
+
+					</div>
+				
 				
 					<div class="inputArea">
 						<label for="makeYmd">제조일</label>
@@ -145,11 +177,23 @@
 				
 						<label for="goodsMustInfo">내용</label>
 						<textarea rows="4" cols="50" name ="goodsMustInfo"></textarea>
+						
+	
 					</div>
+					<script>
+ var ckeditor_config = {
+   resize_enaleb : false,
+   enterMode : CKEDITOR.ENTER_BR,
+   shiftEnterMode : CKEDITOR.ENTER_P,
+   filebrowserUploadUrl : "/aProduct/ckUpload"
+ };
+ 
+ CKEDITOR.replace("goodsMustInfo", ckeditor_config);
+</script>
 
 
 			<div class="inputArea">
-				<label for="imagePath">이미지</label> <input type="file" id="imagePath"
+				<label for="imagePath">썸네일 등록</label> <input type="file" id="imagePath"
 					name="file" />
 				<div class="select_img">
 					<img src="" />

@@ -70,7 +70,14 @@
 		cateCode,
 		goodsMustInfo,
 		gdsThumbImg,
-		imagePath
+		imagePath,
+		
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
+		relationFl,
+		memo
 		) VALUES
 		(
 		#{goodsNm},
@@ -86,7 +93,15 @@
 		#{cateCode},
 		#{goodsMustInfo},
 		#{gdsThumbImg},
-		#{imagePath}
+		#{imagePath},
+		
+		#{goodsWeight},
+		#{salesStartYmd},
+		#{shortDescription},
+		#{goodsDescription},
+		#{relationFl},
+		#{memo}
+		
 		
 		)
 
@@ -134,7 +149,16 @@
 		goodsPrice = #{goodsPrice},
 		modDt =#{modDt},
 		cateCode =#{cateCode},
-		goodsMustInfo =#{goodsMustInfo}
+		goodsMustInfo =#{goodsMustInfo},
+		gdsThumbImg =#{gdsThumbImg},
+		imagePath =#{imagePath},
+		
+		goodsWeight =#{goodsWeight},
+		salesStartYmd =#{salesStartYmd},
+		shortDescription =#{shortDescription},
+		goodsDescription=#{goodsDescription},
+		relationFl=#{relationFl},
+		memo=#{memo}
 		WHERE goodsNo =${goodsNo}
 
 </update>

@@ -32,10 +32,14 @@
 	</beans:bean>
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="D:\\teamproject\\team\\src\\main\\webapp\\resources"></beans:constructor-arg>
+		<beans:constructor-arg value="D:\\git\\team\\src\\main\\webapp\\resources"></beans:constructor-arg>
+		
+		
+
 
 	</beans:bean>
 	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
 	
-	
+			<!-- ck에디터 파일 업로드 경로 -->
+	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
 </beans:beans>

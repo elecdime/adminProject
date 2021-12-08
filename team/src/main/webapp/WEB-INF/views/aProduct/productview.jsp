@@ -106,7 +106,7 @@
 					<input type="hidden" name="n" value="${goods.goodsNo}" />
 					<div class="inputArea">
 						<label>1차 분류</label> <span class="category1"></span> <label>2차
-							분류</label> <span class="category2">${goods.cateCode}</span>
+							분류</label> <span class="category2">${goods.cateName}</span>
 					</div>
 			</div>
 
@@ -138,14 +138,7 @@
 				<label for="goodsMustInfo">내용</label> <span>${goods.goodsMustInfo}</span>
 
 			</div>
-			<div class="inputArea">
-				<label for="imagePath">이미지</label>
-				<p>원본 이미지</p>
-				<img src="${goods.imagePath}" class="originImg" />
-
-				<p>썸네일</p>
-				<img src="${goods.gdsThumbImg}" class="thumbImg" />
-			</div>
+		
 
 
 
@@ -175,8 +168,8 @@
 		</div>
 
 		<div class="inputArea">
-			<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
-			<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+			<button type="button" id="modify_Btn" class="abtn">수정</button>
+			<button type="button" id="delete_Btn" class="abtn">삭제</button>
 
 			<script>
   			var formObj = $("form[role='form']");
@@ -185,7 +178,8 @@
  				  formObj.attr("action", "/aProduct/productupdate");
   					 formObj.attr("method", "get")
   					 formObj.submit();
- 					 });
+ 					alert("상품 수정시 카테고리 재기입 필수");
+  				});
   				$("#delete_Btn").click(function(){
   					 
   					 var con = confirm("정말로 삭제하시겠습니까?");

@@ -1,26 +1,60 @@
 package com.team.domain;
 
+import java.sql.Timestamp;
+
 public class ProductViewDTO {
-	private String goodsNo;
+	private Timestamp regDt;
+	private Timestamp modDt;
+	private Timestamp delDt;
+	private int goodsNo;
 	private String goodsNm;
-	private String cateCode;
-	private String cateName;
-	private String cateCodeRef;
+	private String imagePath;
 	private String makerNm;
 	private String originNm;
 	private String goodsModelNo;
 	private String makeYmd;
-	private String totalStock;
-	private String fixedPrice;
-	private String goodsPrice;
-	private String regDt;
-	private String modDt;
-
 	private String goodsMustInfo;
-	public String getGoodsNo() {
+	private String goodsWeight;
+	private String totalStock;
+	private String soldOutFl;
+	private Timestamp salesStartYmd;
+	private String goodsPrice;
+	private String fixedPrice;
+	private String shortDescription;
+	private String goodsDescription;
+	private String relationFl;
+	private String memo;
+	private int orderCnt;
+	private int hitCnt;
+	private int cartCnt;
+	private int wishCnt;
+	private int reviewCnt;
+	private String cateCode;
+	private String gdsThumbImg;
+	private String cateName;
+	private String cateCodeRef;
+	public Timestamp getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(Timestamp regDt) {
+		this.regDt = regDt;
+	}
+	public Timestamp getModDt() {
+		return modDt;
+	}
+	public void setModDt(Timestamp modDt) {
+		this.modDt = modDt;
+	}
+	public Timestamp getDelDt() {
+		return delDt;
+	}
+	public void setDelDt(Timestamp delDt) {
+		this.delDt = delDt;
+	}
+	public int getGoodsNo() {
 		return goodsNo;
 	}
-	public void setGoodsNo(String goodsNo) {
+	public void setGoodsNo(int goodsNo) {
 		this.goodsNo = goodsNo;
 	}
 	public String getGoodsNm() {
@@ -29,23 +63,11 @@ public class ProductViewDTO {
 	public void setGoodsNm(String goodsNm) {
 		this.goodsNm = goodsNm;
 	}
-	public String getCateCode() {
-		return cateCode;
+	public String getImagePath() {
+		return imagePath;
 	}
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-	}
-	public String getCateName() {
-		return cateName;
-	}
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
-	}
-	public String getCateCodeRef() {
-		return cateCodeRef;
-	}
-	public void setCateCodeRef(String cateCodeRef) {
-		this.cateCodeRef = cateCodeRef;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	public String getMakerNm() {
 		return makerNm;
@@ -71,17 +93,35 @@ public class ProductViewDTO {
 	public void setMakeYmd(String makeYmd) {
 		this.makeYmd = makeYmd;
 	}
+	public String getGoodsMustInfo() {
+		return goodsMustInfo;
+	}
+	public void setGoodsMustInfo(String goodsMustInfo) {
+		this.goodsMustInfo = goodsMustInfo;
+	}
+	public String getGoodsWeight() {
+		return goodsWeight;
+	}
+	public void setGoodsWeight(String goodsWeight) {
+		this.goodsWeight = goodsWeight;
+	}
 	public String getTotalStock() {
 		return totalStock;
 	}
 	public void setTotalStock(String totalStock) {
 		this.totalStock = totalStock;
 	}
-	public String getFixedPrice() {
-		return fixedPrice;
+	public String getSoldOutFl() {
+		return soldOutFl;
 	}
-	public void setFixedPrice(String fixedPrice) {
-		this.fixedPrice = fixedPrice;
+	public void setSoldOutFl(String soldOutFl) {
+		this.soldOutFl = soldOutFl;
+	}
+	public Timestamp getSalesStartYmd() {
+		return salesStartYmd;
+	}
+	public void setSalesStartYmd(Timestamp salesStartYmd) {
+		this.salesStartYmd = salesStartYmd;
 	}
 	public String getGoodsPrice() {
 		return goodsPrice;
@@ -89,23 +129,71 @@ public class ProductViewDTO {
 	public void setGoodsPrice(String goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
-	public String getRegDt() {
-		return regDt;
+	public String getFixedPrice() {
+		return fixedPrice;
 	}
-	public void setRegDt(String regDt) {
-		this.regDt = regDt;
+	public void setFixedPrice(String fixedPrice) {
+		this.fixedPrice = fixedPrice;
 	}
-	public String getModDt() {
-		return modDt;
+	public String getShortDescription() {
+		return shortDescription;
 	}
-	public void setModDt(String modDt) {
-		this.modDt = modDt;
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
-	public String getGoodsMustInfo() {
-		return goodsMustInfo;
+	public String getGoodsDescription() {
+		return goodsDescription;
 	}
-	public void setGoodsMustInfo(String goodsMustInfo) {
-		this.goodsMustInfo = goodsMustInfo;
+	public void setGoodsDescription(String goodsDescription) {
+		this.goodsDescription = goodsDescription;
+	}
+	public String getRelationFl() {
+		return relationFl;
+	}
+	public void setRelationFl(String relationFl) {
+		this.relationFl = relationFl;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	public int getOrderCnt() {
+		return orderCnt;
+	}
+	public void setOrderCnt(int orderCnt) {
+		this.orderCnt = orderCnt;
+	}
+	public int getHitCnt() {
+		return hitCnt;
+	}
+	public void setHitCnt(int hitCnt) {
+		this.hitCnt = hitCnt;
+	}
+	public int getCartCnt() {
+		return cartCnt;
+	}
+	public void setCartCnt(int cartCnt) {
+		this.cartCnt = cartCnt;
+	}
+	public int getWishCnt() {
+		return wishCnt;
+	}
+	public void setWishCnt(int wishCnt) {
+		this.wishCnt = wishCnt;
+	}
+	public int getReviewCnt() {
+		return reviewCnt;
+	}
+	public void setReviewCnt(int reviewCnt) {
+		this.reviewCnt = reviewCnt;
+	}
+	public String getCateCode() {
+		return cateCode;
+	}
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
 	}
 	public String getGdsThumbImg() {
 		return gdsThumbImg;
@@ -113,12 +201,18 @@ public class ProductViewDTO {
 	public void setGdsThumbImg(String gdsThumbImg) {
 		this.gdsThumbImg = gdsThumbImg;
 	}
-	public String getImagePath() {
-		return imagePath;
+	public String getCateName() {
+		return cateName;
 	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
 	}
-	private String gdsThumbImg;
-	private String	imagePath;
+	public String getCateCodeRef() {
+		return cateCodeRef;
+	}
+	public void setCateCodeRef(String cateCodeRef) {
+		this.cateCodeRef = cateCodeRef;
+	}
+
+	
 };
