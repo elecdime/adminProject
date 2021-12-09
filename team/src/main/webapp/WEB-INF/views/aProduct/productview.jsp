@@ -66,8 +66,7 @@
 
 		<div id="seller_content" class="item3">
 			<div class="local_ov01 local_ov">
-				<a href="" class="ov_listall">전체목록</a> <span class="btn_ov01"><span
-					class="ov_txt">등록된 상품</span><span class="ov_num"> 59건</span></span>
+				<a href="/aProduct/product" class="ov_listall">전체목록</a> 
 			</div>
 
 			<form name="flist" class="local_sch01 local_sch">
@@ -103,14 +102,16 @@
 			 -->
 
 				<form role="form" method="post" autocomplete="off">
+
 					<input type="hidden" name="n" value="${goods.goodsNo}" />
+
 					<div class="inputArea">
-						<label>1차 분류</label> <span class="category1"></span> <label>2차
-							분류</label> <span class="category2">${goods.cateName}</span>
+						<!-- <label>1차 분류</label> <span class="category1"></span> --> 
+						<label>카테고리</label> <span class="category2">${goods.cateName}</span>
 					</div>
 			</div>
-
-			<div class="inputArea">
+			
+			<div class="inputArea" >
 				<label for="goodsNm">상품명</label> <span>${goods.goodsNm}</span> <label
 					for="makerNm">제조사</label> <span>${goods.makerNm}</span> <label
 					for="originNm">원산지</label> <span>${goods.originNm}</span>
@@ -128,10 +129,35 @@
 				<label for="totalStock">상품수량</label> <span>${goods.totalStock}</span>
 
 			</div>
+				<div class="inputArea">
+						<label for="goodsWeight">상품 무게</label> 
+							 <span>${goods.goodsWeight}</span>
+
+					</div>
+					
+				<div class="inputArea">
+						<label for="shortDescription">짧은 설명</label> 
+							 <span>${goods.shortDescription}</span>
+
+					</div>
+					<div class="inputArea">
+						<label for="goodsDescription">상품 설명</label> 
+							 <span>${goods.goodsDescription}</span>
+
+			
+					<div class="inputArea">
+						<label for="memo">메모</label> 
+							<span>${goods.memo}</span>
+
+					</div>
 
 			<div class="inputArea">
 				<label for="makeYmd">제조일</label> <span>${goods.makeYmd}</span>
 			</div>
+			<%-- 	<div class="inputArea">
+				<label for="salesStartYmd">상품판매시작일</label> <span>${goods.salesStartYmd}</span>
+			</div>
+			 --%>
 
 			<div class="inputArea">
 

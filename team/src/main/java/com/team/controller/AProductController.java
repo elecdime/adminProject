@@ -53,7 +53,7 @@ public class AProductController {
 	private AProductServcie aProductServcie;
 	
 	@RequestMapping(value = "/aProduct/product", method = RequestMethod.GET)
-	public String productList(AProductDTO aDTO, Model model, HttpServletRequest request) {
+	public String productList(AProductDTO aDTO, Model model, HttpServletRequest request ) {
 		int pageSize=10;
 		 
 		 //페이지 번호 가져오기 

@@ -21,71 +21,80 @@
 <body>
 
 
+<div id="seller_wrap">
+        <div id="seller_top" class="item1">
+            <a>GHSHOP 관리자센터</a>
+            <div class="seller_top_right">
+                <span>ADNUIN 관리자님</span><span><button>로그아웃</button></span>
+            </div> -->
+        
+        </div>
+        <!--  left menu -->
+        <div id="seller_lnb" class="item2">
+            <div class="store"><a href="/">GH SH<span>O</span>P</a></div>
+            <ul class="seller_menu">
+                <li>
+                    <a class="seller_menu_tit">상품관리</a>
+                    <ol class="seller_menu_con">
+                        <li><a href="/aProduct/product">상품관리</a></li>
+                        <li><a href="/aProduct/productinsert">상품등록</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a class="seller_menu_tit">쿠폰관리</a>
+                    <ol class="seller_menu_con">
+                        <li><a href="/aEvent/newCoupon">쿠폰관리</a></li>
+                        <li><a href="#">submenu02</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a class="seller_menu_tit">회원관리</a>
+                    <ol class="seller_menu_con">
+                        <li><a href="#">submenu01</a></li>
+                        <li><a href="#">submenu02</a></li>
+                    </ol>
+                </li>
+                <li>
+                    <a class="seller_menu_tit">menu04</a>
+                    <ol class="seller_menu_con">
+                        <li><a href="#">submenu01</a></li>
+                        <li><a href="#">submenu02</a></li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
 
-	<div id="seller_wrap">
-		<div id="seller_top" class="item1">
-			<a>GHSHOP 관리자센터</a>
-			<div class="seller_top_right">
-				<span>ADNUIN 관리자님</span><span><button>로그아웃</button></span>
-			</div>
-		</div>
-		<!--  left menu -->
-		<div id="seller_lnb" class="item2">
-			<div class="store">
-				<a href="/">GH SH<span>O</span>P
-				</a>
-			</div>
-			<ul class="seller_menu">
-				<li><a class="seller_menu_tit">상품관리</a>
-					<ol class="seller_menu_con">
-						<li><a href="#">submenu01</a></li>
-						<li><a href="#">submenu02</a></li>
-					</ol></li>
-				<li><a class="seller_menu_tit">쿠폰관리</a>
-					<ol class="seller_menu_con">
-						<li><a
-							href="${pageContext.request.contextPath}/aEvent/newCoupon">submenu01</a></li>
-						<li><a href="#">submenu02</a></li>
-					</ol></li>
-				<li><a class="seller_menu_tit">회원관리</a>
-					<ol class="seller_menu_con">
-						<li><a href="#">submenu01</a></li>
-						<li><a href="#">submenu02</a></li>
-					</ol></li>
-				<li><a class="seller_menu_tit">menu04</a>
-					<ol class="seller_menu_con">
-						<li><a href="#">submenu01</a></li>
-						<li><a href="#">submenu02</a></li>
-					</ol></li>
-			</ul>
-		</div>
+        <div id="seller_content" class="item3">
+            <div class="local_ov01 local_ov">
+                <a href="" class="ov_listall">전체목록</a>
+                <span class="btn_ov01"><span class="ov_txt">등록된 상품</span><span class="ov_num"> 59건</span></span>
+            </div>
 
-		<div id="seller_content" class="item3">
-			<div class="local_ov01 local_ov">
-				<a href="" class="ov_listall">전체목록</a> <span class="btn_ov01"><span
-					class="ov_txt">등록된 상품</span><span class="ov_num"> 59건</span></span>
-			</div>
+            <form name="flist" class="local_sch01 local_sch">
+                <input type="hidden" name="save_stx" value="">
 
-			<form name="flist" class="local_sch01 local_sch">
-				<input type="hidden" name="save_stx" value=""> <label
-					for="sca" class="sound_only">분류선택</label> <select name="sca"
-					class="c1" id="sca">
-					<option value="">전체분류</option>
-					<option value="">분류1</option>
-					<option value="">분류2</option>
-				</select> <label for="sfl" class="sound_only">검색대상</label>
-				 <select name="sfl"
-					id="sfl" class="c2">
-					
-					<option value="it_name" selected="selected">상품명</option>
-					<option value="it_id">상품코드</option>
-					<option value="it_maker">제조사</option>
-					<option value="it_origin">원산지</option>
-					<option value="it_sell_email">판매자 e-mail</option>
-				</select> <label for="stx" class="sound_only">검색어</label> <input type="text"
-					name="stx" value="" id="stx" class="frm_input">
-				<button type="submit" value="검색" class="btn_submit">검색</button>
-			</form>
+                <label for="sca" class="sound_only">분류선택</label>
+                <select name="sca" id="sca">
+                    <option value="">전체분류</option>
+                    <option value="">분류1</option>
+                    <option value="">분류2</option>
+                </select>
+
+                <label for="sfl" class="sound_only">검색대상</label>
+                <select name="sfl" id="sfl">
+                    <option value="it_name" selected="selected">상품명</option>
+                    <option value="it_id">상품코드</option>
+                    <option value="it_maker">제조사</option>
+                    <option value="it_origin">원산지</option>
+                    <option value="it_sell_email">판매자 e-mail</option>
+                </select>
+
+                <label for="stx" class="sound_only">검색어</label>
+                <input type="text" name="stx" value="" id="stx" class="frm_input">
+                <button type="submit" value="검색" class="btn_submit">검색</button>
+            </form>
+
+
 
 
 
@@ -101,11 +110,10 @@
 			 -->
 
 				<form role="form" method="post" autocomplete="off" enctype="multipart/form-data" action="/aProduct/productInsertPro">
-
-					<div class="inputArea">
+							<div class="inputArea">
 						<label>1차 분류</label> <select class="category1"></select> <label>2차
 							분류</label> <select class="category2" name="cateCode"></select>
-					</div></div>
+					</div>
 
 					<div class="inputArea">
 					<label>상품명</label> 
@@ -126,28 +134,28 @@
 								 <input type="text" name ="goodsModelNo">
 							
 							 <label for="goodsPrice">상품가격</label>
-								 <input type="text" name ="goodsPrice">
+								 <input type="number" name ="goodsPrice">
 						 <label
 							for="fixedPrice">정가</label> 
-							 <input type="text" name ="fixedPrice">
+							 <input type="number" name ="fixedPrice">
 							
 					</div>
 
 					<div class="inputArea">
 						<label for="totalStock">상품수량</label> 
-							 <input type="text" name ="totalStock">
+							 <input type="number" name ="totalStock">
 
 					</div>
 				<div class="inputArea">
 						<label for="goodsWeight">상품 무게</label> 
-							 <input type="text" name ="goodsWeight">
+							 <input type="number" name ="goodsWeight">
 
 					</div>
-					<div class="inputArea">
-						<label for="salesStartYmd">상품 판매 시작일</label> 
+				<!-- 	<div class="inputArea">
+						<label for="salesStartYmd">상품 판매 시작일 (YYMMDD)</label> 
 							 <input type="text" name ="salesStartYmd">
 
-					</div>
+					</div> -->
 				<div class="inputArea">
 						<label for="shortDescription">짧은 설명</label> 
 							 <input type="text" name ="shortDescription">
@@ -160,7 +168,7 @@
 					</div>
 					
 
-					</div>
+				
 					<div class="inputArea">
 						<label for="memo">메모</label> 
 							 <input type="text" name ="memo">
@@ -170,7 +178,7 @@
 				
 					<div class="inputArea">
 						<label for="makeYmd">제조일</label>
-						<input type="text" name ="makeYmd">
+						<input type="date" name ="makeYmd">
 					</div>
 
 				<div class="inputArea">
@@ -179,54 +187,55 @@
 						<textarea rows="4" cols="50" name ="goodsMustInfo"></textarea>
 						
 	
+						</div>
+												<script>
+							 var ckeditor_config = {
+							   resize_enaleb : false,
+							   enterMode : CKEDITOR.ENTER_BR,
+							   shiftEnterMode : CKEDITOR.ENTER_P,
+							   filebrowserUploadUrl : "/aProduct/ckUpload"
+							 };
+							 
+							 CKEDITOR.replace("goodsMustInfo", ckeditor_config);
+							</script>
+
+
+						<div class="inputArea">
+							<label for="imagePath">썸네일 등록</label> <input type="file" id="imagePath"
+								name="file" />
+							<div class="select_img">
+								<img src="" />
+							</div>
+			
+							<script>
+								$("#imagePath").change(
+										function() {
+											if (this.files && this.files[0]) {
+												var reader = new FileReader;
+												reader.onload = function(data) {
+													$(".select_img img").attr("src",
+															data.target.result).width(500);
+												}
+												reader.readAsDataURL(this.files[0]);
+											}
+										});
+							</script>
+						</div>
+			
+			
 					</div>
-					<script>
- var ckeditor_config = {
-   resize_enaleb : false,
-   enterMode : CKEDITOR.ENTER_BR,
-   shiftEnterMode : CKEDITOR.ENTER_P,
-   filebrowserUploadUrl : "/aProduct/ckUpload"
- };
- 
- CKEDITOR.replace("goodsMustInfo", ckeditor_config);
-</script>
-
-
-			<div class="inputArea">
-				<label for="imagePath">썸네일 등록</label> <input type="file" id="imagePath"
-					name="file" />
-				<div class="select_img">
-					<img src="" />
-				</div>
-
-				<script>
-					$("#imagePath").change(
-							function() {
-								if (this.files && this.files[0]) {
-									var reader = new FileReader;
-									reader.onload = function(data) {
-										$(".select_img img").attr("src",
-												data.target.result).width(500);
-									}
-									reader.readAsDataURL(this.files[0]);
-								}
-							});
-				</script>
+			
+								<div class="inputArea">
+									<button type="submit" id="adBtn" class="adBtn">등록</button>
+								</div>
+			
+							</form>
+			
+						</div>
+			
 			</div>
-
-
-		</div>
-
-					<div class="inputArea">
-						<button type="submit" id="adBtn" class="adBtn">등록</button>
-					</div>
-
-				</form>
-
-			</div>
-
-		</div>
-	</div>
+			
+				
 	<!--  seller_wrap  -->
 
 

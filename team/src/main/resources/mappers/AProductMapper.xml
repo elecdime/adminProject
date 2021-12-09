@@ -8,9 +8,12 @@
 
 	<select id="productList"
 		resultType="com.team.domain.AProductDTO">
-		select
-		goodsNo,
-		goodsNm,
+	select 
+		p.goodsNo,
+		p.goodsNm,
+		c.cateCode,
+		c.cateName,
+		c.cateCodeRef,
 		makerNm,
 		originNm,
 		goodsModelNo,
@@ -20,12 +23,19 @@
 		goodsPrice,
 		regDt,
 		modDt,
-		cateCode,
+		p.cateCode,
+		goodsMustInfo,
 		gdsThumbImg,
-		imagePath
+		imagePath,
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
 		
-		FROM Product order
-		by goodsNo desc limit #{startRow}, #{pageSize}
+		memo
+	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
+		 order
+		by goodsNo desc limit  #{startRow}, #{pageSize}
 
 	</select>
 
@@ -76,7 +86,7 @@
 		salesStartYmd,
 		shortDescription,
 		goodsDescription,
-		relationFl,
+		
 		memo
 		) VALUES
 		(
@@ -96,10 +106,10 @@
 		#{imagePath},
 		
 		#{goodsWeight},
-		#{salesStartYmd},
+		now(),
 		#{shortDescription},
 		#{goodsDescription},
-		#{relationFl},
+		
 		#{memo}
 		
 		
@@ -126,7 +136,13 @@
 		p.cateCode,
 		goodsMustInfo,
 		gdsThumbImg,
-		imagePath
+		imagePath,
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
+		
+		memo
 	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
 		WHERE p.goodsNo =#{goodsNo}
 	</select>
@@ -154,10 +170,10 @@
 		imagePath =#{imagePath},
 		
 		goodsWeight =#{goodsWeight},
-		salesStartYmd =#{salesStartYmd},
+
 		shortDescription =#{shortDescription},
 		goodsDescription=#{goodsDescription},
-		relationFl=#{relationFl},
+		
 		memo=#{memo}
 		WHERE goodsNo =${goodsNo}
 

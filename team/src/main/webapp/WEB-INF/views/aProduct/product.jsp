@@ -12,9 +12,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
     
     <style type="text/css">
-
 .thumbImg{width: 200px; height: 300px;}
-
 </style>
 </head>
 
@@ -157,7 +155,7 @@
 				<td class="listData"><b><a href="/aProduct/productview?n=${aProductDTO.goodsNo}">${aProductDTO.goodsNo}</a></b>
 					</nobr></td>
 				<td class="listData">${aProductDTO.goodsNm}</td>
-				<td class="listData">${aProductDTO.cateCode}</td>
+				<td class="listData">${aProductDTO.cateName}</td>
 				<td class="listData">${aProductDTO.makerNm}<nobr>
 						</td>
 				<td class="listData">${aProductDTO.originNm}</td>
@@ -178,18 +176,18 @@
 
 		<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			<a
-				href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage-pageDTO.pageBlock}">[이전]</a>
+				href="${pageContext.request.contextPath}/aProduct/product?pageNum=${pageDTO.startPage-pageDTO.pageBlock}">[이전]</a>
 		</c:if>
 
 		<c:forEach var="i" begin="${pageDTO.startPage }"
 			end="${pageDTO.endPage }" step="1">
-			<a href="${pageContext.request.contextPath}/board/list?pageNum=${i}">${i}
+			<a href="${pageContext.request.contextPath}/aProduct/product?pageNum=${i}">${i}
 			</a>
 		</c:forEach>
 
 		<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 			<a
-				href="${pageContext.request.contextPath}/board/list?pageNum=${pageDTO.startPage+pageDTO.pageBlock}">[다음]</a>
+				href="${pageContext.request.contextPath}/aProduct/product?pageNum=${pageDTO.startPage+pageDTO.pageBlock}">[다음]</a>
 		</c:if>
 
                        <div class="adBtn"><button class="adbtn1" onclick="location.href='${pageContext.request.contextPath}/aProduct/productinsert'" >상품등록</button></div>

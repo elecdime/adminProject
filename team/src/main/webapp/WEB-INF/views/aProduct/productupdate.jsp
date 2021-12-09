@@ -127,28 +127,27 @@
 					<div class="inputArea">
 						<label for="goodsModelNo">모델명</label> <input type="text"
 							name="goodsModelNo" value="${goods.goodsModelNo}"> <label
-							for="goodsPrice">상품가격</label> <input type="text"
+							for="goodsPrice">상품가격</label> <input type="number"
 							name="goodsPrice" value="${goods.goodsPrice}"> <label
-							for="fixedPrice">정가</label> <input type="text" name="fixedPrice"
+							for="fixedPrice">정가</label> <input type="number" name="fixedPrice"
 							value="${goods.fixedPrice}">
 
 					</div>
 
 					<div class="inputArea">
-						<label for="totalStock">상품수량</label> <input type="text"
+						<label for="totalStock">상품수량</label> <input type="number"
 							name="totalStock" value="${goods.totalStock}">
 
 					</div>
 						<div class="inputArea">
 						<label for="goodsWeight">상품 무게</label> 
-							 <input type="text" name ="goodsWeight" value="${goods.goodsWeight}">
+							 <input type="number" name ="goodsWeight" value="${goods.goodsWeight}">
 
 					</div>
-					<div class="inputArea">
-						<label for="salesStartYmd">상품 판매 시작일</label> 
-							 <input type="text" name ="salesStartYmd" value="${goods.salesStartYmd}">
-
-					</div>
+					<%-- <div class="inputArea">
+						<label for="salesStartYmd">상품 판매 시작일 (YYMMDD)</label> 
+							 <input type="text" name ="salesStartYmd" value="${goods.salesStartYmd}"> --%>
+						
 				<div class="inputArea">
 						<label for="shortDescription">짧은 설명</label> 
 							 <input type="text" name ="shortDescription" value="${goods.shortDescription}">
@@ -166,7 +165,7 @@
 					</div>
 
 					<div class="inputArea">
-						<label for="makeYmd">제조일</label> <input type="text" name="makeYmd"
+						<label for="makeYmd">제조일</label> <input type="date" name="makeYmd"
 							value="${goods.makeYmd}">
 					</div>
 
@@ -303,6 +302,7 @@
 		 });
 		 
 		});
+	
 </script>
 
 </body>
