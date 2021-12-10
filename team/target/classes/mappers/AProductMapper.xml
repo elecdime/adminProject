@@ -34,6 +34,20 @@
 		
 		memo
 	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
+		<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where p.goodsNo LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where p.goodsNm LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where c.cateName LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
+	
 		 order
 		by goodsNo desc limit  #{startRow}, #{pageSize}
 
@@ -43,6 +57,19 @@
 	<select id="getProductCount" resultType="java.lang.Integer">
 		select count(*) from
 		product
+		<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where p.goodsNo LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where p.goodsNm LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where c.cateName LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
 	</select>
 
 

@@ -39,7 +39,7 @@ public class AProductServcieImpl implements AProductServcie {
 		Timestamp date = new Timestamp(System.currentTimeMillis());
 		aProductDTO.setRegDt(date);
 		aProductDTO.setModDt(date);
-
+	
 		
 		aProductDAO.insertProduct(aProductDTO);
 	}@Override

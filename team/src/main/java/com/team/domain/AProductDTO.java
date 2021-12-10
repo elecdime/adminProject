@@ -1,7 +1,13 @@
 package com.team.domain;
 
 import java.sql.Timestamp;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Data
+@Getter
+@Setter
 public class AProductDTO {
 	private Timestamp regDt;
 	private Timestamp modDt;
@@ -17,7 +23,7 @@ public class AProductDTO {
 	private String goodsWeight;
 	private String totalStock;
 	private String soldOutFl;
-	private String salesStartYmd;
+	private Timestamp salesStartYmd;
 	private String goodsPrice;
 	private String fixedPrice;
 	private String shortDescription;
@@ -26,46 +32,6 @@ public class AProductDTO {
 	private String memo;
 	private int orderCnt;
 	private int hitCnt;
-	private int cartCnt;
-	private int wishCnt;
-	private int reviewCnt;
-	private String cateCode;
-	private String gdsThumbImg;
-	private String cateName;
-
-	public String getCateName() {
-		return cateName;
-	}
-
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
-	}
-
-	public String getCateCodeRef() {
-		return cateCodeRef;
-	}
-
-	public void setCateCodeRef(String cateCodeRef) {
-		this.cateCodeRef = cateCodeRef;
-	}
-
-	private String cateCodeRef;
-	public String getGdsThumbImg() {
-		return gdsThumbImg;
-	}
-
-	public void setGdsThumbImg(String gdsThumbImg) {
-		this.gdsThumbImg = gdsThumbImg;
-	}
-
-	public String getCateCode() {
-		return cateCode;
-	}
-
-	public void setCateCode(String cateCode) {
-		this.cateCode = cateCode;
-	}
-
 	public Timestamp getRegDt() {
 		return regDt;
 	}
@@ -178,11 +144,11 @@ public class AProductDTO {
 		this.soldOutFl = soldOutFl;
 	}
 
-	public String getSalesStartYmd() {
+	public Timestamp getSalesStartYmd() {
 		return salesStartYmd;
 	}
 
-	public void String(String salesStartYmd) {
+	public void setSalesStartYmd(Timestamp salesStartYmd) {
 		this.salesStartYmd = salesStartYmd;
 	}
 
@@ -273,4 +239,46 @@ public class AProductDTO {
 	public void setReviewCnt(int reviewCnt) {
 		this.reviewCnt = reviewCnt;
 	}
+
+	public String getCateCode() {
+		return cateCode;
+	}
+
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
+	}
+
+	public String getGdsThumbImg() {
+		return gdsThumbImg;
+	}
+
+	public void setGdsThumbImg(String gdsThumbImg) {
+		this.gdsThumbImg = gdsThumbImg;
+	}
+
+	public String getCateName() {
+		return cateName;
+	}
+
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+
+	public String getCateCodeRef() {
+		return cateCodeRef;
+	}
+
+	public void setCateCodeRef(String cateCodeRef) {
+		this.cateCodeRef = cateCodeRef;
+	}
+
+	private int cartCnt;
+	private int wishCnt;
+	private int reviewCnt;
+	private String cateCode;
+	private String gdsThumbImg;
+	private String cateName;
+	
+	private String cateCodeRef;
+	
 }

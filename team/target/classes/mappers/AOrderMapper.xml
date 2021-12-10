@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.AOrderMapper">	
+	
+<!-- 	주문 조회 및 검색 -->
+	<select id="aOrderSearch" resultType="com.team.domain.AOrderDTO">
+		SELECT o.orderId, m.memId, m.memNm, o.orderProduct, o.orderDate, o.amount, o.orderStat
+		FROM orders as o 
+		JOIN member as m
+		ON m.memId = o.memId
+		
+		
+			<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where o.orderId LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where o.orderProduct LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where o.memId LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
+		
+		
+		ORDER BY o.orderId desc
+		limit #{startRow}, #{pageSize}
+		
+	</select>
+	
+	
+	<!-- 	발송확인 조회 및 검색 -->
+	<select id="sendaOrderList" resultType="com.team.domain.AOrderDTO">
+		SELECT o.orderId, m.memId, o.orderProduct, o.orderDate, o.amount, o.orderStat
+		FROM orders as o 
+		JOIN member as m
+		ON m.memId = o.memId
+		
+		<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where o.orderId LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where o.orderProduct LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where o.memId LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
+			AND o.orderStat = '3'
+		ORDER BY o.orderId desc		
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- 	배송목록 조회 및 검색 -->
+	<select id="deliveryList" resultType="com.team.domain.AOrderDTO">
+		SELECT o.orderId, m.memId, o.orderProduct, o.orderDate, o.recipient, o.orderAddr, o.orderSub, o.orderZipcode, o.postCode, o.orderStat
+		FROM orders as o 
+		JOIN member as m
+		ON m.memId = o.memId
+		
+		<if test="type != null">
+			<choose>
+				<when test="type == 'num'">
+				where o.orderId LIKE CONCAT(#{content})
+				</when>
+				<when test="type == 'name'">
+				where o.postCode LIKE CONCAT(#{content})
+				</when>
+				<when test="type == 'user'">
+				where o.memId LIKE CONCAT('%',#{content},'%')
+				</when>
+			</choose>
+		</if>
+			AND o.orderStat = '4'
+		ORDER BY o.orderId desc		
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	
+	<!-- 총 주문목록 게시글 갯수 출력 -->
+	<select id="allOrderCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM orders as o 
+		join member as m
+		on m.memId = o.memId		
+	</select>
+	
+	<!-- 발송확인 게시글 갯수 출력 -->
+	<select id="sendOrderCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM orders as o 
+		join member as m
+		on m.memId = o.memId
+		where orderStat = '3'
+		
+	</select>
+	
+	<!-- 배송확인 게시글 갯수 출력 -->
+	<select id="deliveryCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM orders as o 
+		join member as m
+		on m.memId = o.memId
+		where orderStat = '4'
+		
+	</select>
+	
+
+
+
+<!-- 주문한 상품이름 가져오기 -->
+<select id="getOrderProNm" resultType="String">
+	select goodsNm
+	from product
+	where goodsNo = #{goodsNo}
+</select>
+
+
+
+<!-- 주문한 상품가격 가져오기 -->
+<select id="getOrderPrice" resultType="int">
+	select goodsPrice
+	from product
+	where goodsNo = #{goodsNo}
+</select>
+
+<!-- 주문한 상품수량 가져오기 -->
+<select id="getOrderCnt" resultType="int">
+	select orderCnt
+	from product
+	where goodsNo = #{goodsNo}
+</select>
+
+	<select id="prepareProductList" resultType="com.team.domain.AOrderDTO">
+		select *
+		from orders
+		where orderStat = '2'
+		order by orderId
+	</select>
+	
+	<select id="stockCheck" resultType="com.team.domain.AOrderDTO">
+		select *
+		from product
+		where goodsNo = #{product} 
+		and totalStock >= #{quantity} 
+	</select>
+	
+	<select id="getStock" resultType="int">
+		select totalStock
+		from product
+		where goodsNo = #{goodsNo}
+	</select>
+	
+	<update id="stockUpdate">
+		update product
+		set totalStock = #{totalStock}
+		where goodsNo = #{goodsNo}
+	</update>
+	
+	<update id="updateStat_3">
+		update orders
+		set orderStat = '3'
+		where orderId = #{orderId}
+	</update>
+	
+	<insert id="insertNoStock">
+		insert into orders
+		values (#{orderId}, #{orderStat}, #{memId}, #{orderProduct}, #{orderAddr}, #{orderSub}, #{orderZipcode}, #{orderPhone}, #{postCode}, #{amount}, #{recipient}, #{orderDate})
+	</insert>
+
+	<!-- <insert id="insertNoStock">
+		insert into orders (orderId, orderStat, memId, orderProduct)
+		values (#{orderId}, #{orderStat}, #{memId}, #{orderProduct})
+	</insert> -->
+	
+	<update id="updateOrderId">
+		update orders
+		set orderId = #{orderId}
+		where orderId = #{beforOrderId}
+	</update>
+	
+	<update id="updateOrderProduct_stock">
+		update orders
+		set orderProduct = #{orderProduct}
+		where orderId = #{orderId}
+	</update>
+	
+	<select id="reSend_count" resultType="int">
+		select count(*)
+		from orders
+		where orderId like concat('%',#{orderId},'%')
+	
+	</select>
+	
+	<delete id="delete_remain">
+		delete from orders
+		where orderId = #{orderId}
+	
+	</delete>
+	
+	<select id="selectOrder" resultType="com.team.domain.AOrderDTO">
+		select *
+		from orders
+		where orderId = #{orderId}
+	
+	</select>
+	
+	<select id="searchGoodsNm" resultType = "com.team.domain.AOrderDTO"> 
+		select goodsNm
+		from product
+		where goodsNo = #{goodsNo}
+	
+	</select>
+
+
+	<update id = "updatePostCode" >
+		update orders set postCode = #{postCode}, orderStat = '4' where orderId =  #{orderId}
+	</update>
+	
+
+	
+	
+
+</mapper>

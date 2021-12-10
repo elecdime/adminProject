@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,78 +18,35 @@
 </head>
 
 <body>
- <div id="seller_wrap">
-        <div id="seller_top" class="item1">
-            <a>GHSHOP 관리자센터</a>
-            <div class="seller_top_right">
-                <span>ADNUIN 관리자님</span><span><button>로그아웃</button></span>
-            </div>
-        </div>
+  <%@include file="../inc/head.jsp"%>
         <!--  left menu -->
-        <div id="seller_lnb" class="item2">
-            <div class="store"><a href="/">GH SH<span>O</span>P</a></div>
-            <ul class="seller_menu">
-                <li>
-                    <a class="seller_menu_tit">상품관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="/aProduct/product">상품관리</a></li>
-                        <li><a href="/aProduct/productinsert">상품등록</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">쿠폰관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="${pageContext.request.contextPath}/aEvent/newCoupon">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">회원관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">menu04</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-            </ul>
-        </div>
+  <%@include file="../inc/left.jsp"%>
 
-        <div id="seller_content" class="item3">
-            <div class="local_ov01 local_ov">
-                <a href="" class="ov_listall">전체목록</a>
-                <span class="btn_ov01"><span class="ov_txt">등록된 상품</span><span class="ov_num"> 59건</span></span>
-            </div>
+
+         <%@include file="../inc/content.jsp"%>
 
             <form name="flist" class="local_sch01 local_sch">
                 <input type="hidden" name="save_stx" value="">
-
+				 
                 <label for="sca" class="sound_only">분류선택</label>
                 <select name="sca" id="sca">
                     <option value="">전체분류</option>
                     <option value="">분류1</option>
                     <option value="">분류2</option>
                 </select>
-
-                <label for="sfl" class="sound_only">검색대상</label>
+					
+                   <label for="sfl" class="sound_only">검색대상</label>
                 <select name="sfl" id="sfl">
-                    <option value="it_name" selected="selected">상품명</option>
-                    <option value="it_id">상품코드</option>
-                    <option value="it_maker">제조사</option>
-                    <option value="it_origin">원산지</option>
-                    <option value="it_sell_email">판매자 e-mail</option>
+                    <option value="num" selected="selected">상품번호</option>
+                    <option value="name">상품명</option>
+                    <option value="user">카테고리</option>               
+                    
                 </select>
 
                 <label for="stx" class="sound_only">검색어</label>
                 <input type="text" name="stx" value="" id="stx" class="frm_input">
                 <button type="submit" value="검색" class="btn_submit">검색</button>
             </form>
-
 
 
          
@@ -175,7 +133,7 @@
 		</table>
 
 		<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-			<a
+			
 				href="${pageContext.request.contextPath}/aProduct/product?pageNum=${pageDTO.startPage-pageDTO.pageBlock}">[이전]</a>
 		</c:if>
 

@@ -1,5 +1,12 @@
 package com.team.domain;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Getter
+@Setter
 public class APageDTO {
 	
 	private int pageSize;
@@ -15,7 +22,8 @@ public class APageDTO {
 	private int endPage;
 	private int pageCount;
 	
-	
+	private String type;
+	private String content;
 	
 	public int getPageSize() {
 		return pageSize;
@@ -47,23 +55,6 @@ public class APageDTO {
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-		init();
-	}
-	public void init() {
-		pageBlock=10;
-		startPage=(currentPage-1)/pageBlock*pageBlock+1;
-		endPage=startPage+pageBlock-1;
-		pageCount=count/pageSize+(count%pageSize==0?0:1);
-		if (endPage > pageCount) {
-			endPage=pageCount;
-		}
-	}
-	
 	public int getPageBlock() {
 		return pageBlock;
 	}
@@ -88,6 +79,54 @@ public class APageDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getOrderProNm() {
+		return orderProNm;
+	}
+	public void setOrderProNm(String orderProNm) {
+		this.orderProNm = orderProNm;
+	}
+	public int getOrderCnt() {
+		return orderCnt;
+	}
+	public void setOrderCnt(int orderCnt) {
+		this.orderCnt = orderCnt;
+	}
+	public int getCount() {
+		return count;
+	}
+	private String orderProNm;
+	private int orderCnt;
+	
+	
+	
+	
+	public void setCount(int count) {
+		this.count = count;
+		init();
+	}
+	public void init() {
+		pageBlock=10;
+		startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		endPage=startPage+pageBlock-1;
+		pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if (endPage > pageCount) {
+			endPage=pageCount;
+		}
+	}
+	
+	
 	
 	
 	
