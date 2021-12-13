@@ -9,58 +9,17 @@
     <title>GH SHOP</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 
 
 <body>
 
+<%@include file="../inc/head.jsp"%>
+        <!--  left menu -->
+ <%@include file="../inc/left.jsp"%>
 
-
-    <div id="seller_wrap">
-        <div id="seller_top" class="item1">
-            <a>GHSHOP 관리자센터</a>
-            <div class="seller_top_right">
-                <span>ADNUIN 관리자님</span><span><button>로그아웃</button></span>
-            </div>
-        </div>
-        <div id="seller_lnb" class="item2">
-            <div class="store"><a href="/">GH SH<span>O</span>P</a></div>
-            <ul class="seller_menu">
-                <li>
-                    <a class="seller_menu_tit">상품관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">쿠폰관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">회원관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit" onclick="">주문관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="./aOrderList">전체주문목록</a></li>
-                        <li><a href="./newaOrderList">발주목록</a></li>
-                        <li><a href="./sendaOrderCheck">발송확인</a></li>
-                        <li><a href="./deliveryCheck">배송현황</a></li>
-                        <li><a href="./payback">환불내역</a></li>
-                        <li><a href="./exchange">교환내역</a></li>
-                    </ol>
-                </li>
-            </ul>
-        </div>
+    
 
         <div id="seller_content" class="item3">
             <div class="local_ov01 local_ov">
@@ -76,7 +35,6 @@
                 <label for="sfl" class="sound_only">검색대상</label>
                 <select name="sfl" id="sfl">
                     <option value="num" selected="selected">주문번호</option>
-                    <option value="name">상품명</option>
                     <option value="user">구매자</option>               
                     
                 </select>
@@ -87,14 +45,21 @@
             </form>
 
             <div class="formTitle">발송관리 리스트 <span>검색조건에 해당하는 리스트를 확인 할수 있습니다.</span></div>
-            <div class="adBtn"><button class="adbtn2">발송취소</button></div>
-            <div id="listdiv">
+<!--             <div class="adBtn"><button class="adbtn2">발송취소</button></div> -->
+            
+           <c:if test="${search == null }">
+				<div id="listdiv">				
+			</c:if>
+			
+			<c:if test="${search != null }">
+				<div id="listdiv" style=" width:100%; height:500px; overflow:auto;">	
+			</c:if>
+			
                 <form name="signForm" method="post" onsubmit="return false;">
                     <input type="hidden" name="mode" value="">
 					<table class="listTbl fixed">
 						<tbody>
 							<tr height="25" align="center" bgcolor="#5e718f">
-								<th><input type="checkbox" name="" value="" onclick=""></th>
 								<th class="listTitle">주문번호</th>
 								<th class="listTitle">상품번호</th>
 								<th class="listTitle">상품명</th>
@@ -102,7 +67,6 @@
 								<th class="listTitle">주문날짜</th>
 								<th class="listTitle">총 결제 금액</th>
 								<th class="listTitle">주문상태</th>
-								<th class="listTitle">클레임상태</th>
 								<th class="listTitle">운송장번호</th>
 
 							</tr>
@@ -121,14 +85,15 @@
 											<c:when test="${sendaOrderList.orderStat == '4'}">
 												<c:set var="orderStat" value="배송 중"></c:set>
 											</c:when>
+											<c:when test="${sendaOrderList.orderStat == '5'}">
+												<c:set var="orderStat" value="배송 완료"></c:set>
+											</c:when>
 								
 								</c:choose>
 							
 							
 
 								<tr >
-									<td class="listData"><input type="checkbox" name=""><input type="hidden" id="chbx_<c:out value="${sendaOrderList.orderId}" />">
-									<input type="hidden" value ="orderId_<c:out value="${sendaOrderList.orderId}" />"></td>
 									<td class="listData"><input type="hidden"  id="orderId_<c:out value="${sendaOrderList.orderId}" />" value="<c:out value="${sendaOrderList.orderId}" />">
 										<c:out value="【${sendaOrderList.orderId}】" />
 									</td>
@@ -136,16 +101,17 @@
 
 									<td class="listDataTitle txt-left">							
 										<nobr>										
-											<b><a href="/"><c:out value=" ${sendaOrderList.goodsNm}" /></a></b>
+											<b><a href="${pageContext.request.contextPath}/goods_view?n=${sendaOrderList.goodsNo}">
+											<c:out value=" ${sendaOrderList.goodsNm}" /></a></b>
 										</nobr> 외 	${sendaOrderList.excepCnt}개
 									</td>
-									<td class="listData" ><c:out value="${sendaOrderList.memId}" /></td>
+									<td class="listData" ><a href="${pageContext.request.contextPath}/aMember/memberInfo?memId=${sendaOrderList.memId}">
+									<c:out value="${sendaOrderList.memId}" /></a></td>
 
 									<td class="listData"><c:out value="${sendaOrderList.orderDate}" /></td>
 									<td class="listData"><c:out
 											value="${sendaOrderList.amount} 원" /></td>
 									<td class="listData"><c:out value="${orderStat}" /></td>
-									<td class="listData"><c:out value="클레임상태" /></td>
 									<td class="listData"><input type="text" id="postNum_<c:out value="${sendaOrderList.orderId}"/>"><br>
 									<div class="adBtn">
 									<button class="adbtn1" id="btnSend_${sendaOrderList.orderId}" >발송확인</button>
@@ -175,27 +141,20 @@
 					</c:if>
 
 				</form>
-            </div>
-             
+            </div>             
             
 
         </div>
-    </div><!--  seller_wrap  -->
 
 
-    <script>
-					$(document).ready(
-							function() {
-								$(".seller_menu_tit").click(
-										function() {
-											$(".seller_menu_con").removeClass(
-													'on');
-											$(this).parent().find(
-													".seller_menu_con")
-													.toggleClass('on');
-										});
-							});
-	</script>
+  <script>
+        $(document).ready(function() {
+            $(".seller_menu_tit").click(function() {
+                $(".seller_menu_con").removeClass('on');
+                $(this).parent().find(".seller_menu_con").toggleClass('on');
+            });
+        });
+    </script>
 	
 	
 	<script type="text/javascript"> 
@@ -204,11 +163,6 @@
  			var postCode =$("#"+postCodeId).val();
  			var orderPostId = postCodeId.split("_");
  			var orderId = orderPostId[1];
-//  			var btnId = $("#btnSend_"+orderId).next().val(); 			
-
-// 			alert(postCodeId);
-// 			alert(postCode);
-// 			alert(orderId);
 
   			 $.ajax({
   				    url: "sendaOrderCheckPro",

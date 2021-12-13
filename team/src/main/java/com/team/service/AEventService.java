@@ -2,6 +2,7 @@ package com.team.service;
 
 import java.util.List;
 
+
 import com.team.domain.AEventDTO;
 import com.team.domain.PageDTO;
 
@@ -25,5 +26,6 @@ public interface AEventService {
 	public int getAll_couponCount();
 	public List<AEventDTO> giveCouponSearch(String searchText);
 	public List<AEventDTO> giveCouponSearch_coup(String searchText);
+	public List<AEventDTO> delCouponSearch(String searchText);
 	
 }

@@ -1,5 +1,7 @@
 package com.team.controller;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.dao.AOrderDAO;
 import com.team.domain.AOrderDTO;
 import com.team.domain.APageDTO;
 import com.team.service.AOrderService;
@@ -27,16 +30,25 @@ public class AOrderController {
 
 	// 전체주문목록
 	@RequestMapping(value = "/aOrder/aOrderList", method = RequestMethod.GET)
-	public String getaOrderList(Model model, HttpServletRequest request, AOrderDTO aOrderDTO) throws Exception {
-		APageDTO pageDTO = new APageDTO();
+	public String getaOrderList(Model model, HttpServletRequest request, AOrderDTO aOrderDTO, APageDTO pageDTO) throws Exception {
 		System.out.println("AOrderController :: aOrderList");
-
+		
 		pageDTO.setType(request.getParameter("sfl"));
 		pageDTO.setContent(request.getParameter("stx"));
 		System.out.println("Type : " + pageDTO.getType());
-		System.out.println("Content : " + pageDTO.getContent());		
+		System.out.println("Content : " + pageDTO.getContent());	
+		String stx = pageDTO.getContent();
+		if (pageDTO.getType() != null) {
+			System.out.println("야호1");
+			if (pageDTO.getType().equals("name")) {
+				System.out.println("야호2");
+				System.out.println("stx : "+stx);
+				stx = URLEncoder.encode(stx,"UTF-8");
+				return "redirect:/aOrder/searchOrder?sfl=name&stx="+stx;
+				
+			}
+		}
 		
-
 		int pageSize = 10;
 
 		// 페이지 번호 가져오기
@@ -59,11 +71,7 @@ public class AOrderController {
 		pageDTO.setStartRow(startRow - 1);
 		pageDTO.setEndRow(endRow);
 
-		
-
 		List<AOrderDTO> aOrderList = AOrderService.aOrderList(pageDTO);
-		
-
 
 		for (int i = 0; i < aOrderList.size(); i++) {
 			aOrderDTO = aOrderList.get(i);
@@ -95,26 +103,25 @@ public class AOrderController {
 			String orderProNm = AOrderService.getOrderProNm(aOrderDTO);
 			aOrderDTO.setGoodsNm(orderProNm);
 			model.addAttribute("goodsNm", orderProNm);
+			System.out.println("goodsNm : "+aOrderDTO.getGoodsNm());
+			
+			
 			
 		}
 		aOrderDTO.setOrderProduct(aOrderDTO.getGoodsNm());
 		model.addAttribute("orderProduct", aOrderDTO.getGoodsNm());
 		System.out.println("orderProduct : " + aOrderDTO.getGoodsNm());	
-//		if(pageDTO.getType() != null && pageDTO.getType().equals("name")) {
-//			System.out.println("getTypeIf1 : "+pageDTO.getType());
-//			if(pageDTO.getContent() != null) {
-//				System.out.println("getTypeIf2 : "+pageDTO.getType());
-//				
-//				pageDTO.setOrderProNm(orderProNm);
-//				
-//			}
-//		}
 
 		// paging
 		// 한화면에 보여줄 글개수 10개 설정
 		// 게시판 전체 글 개수 select count(*) from board
 		int cnt = AOrderService.allOrderCount();
 		pageDTO.setCount(cnt);
+			
+		if (pageDTO.getType() != null) {
+			model.addAttribute("search","search");
+		}
+
 		
 
 		model.addAttribute("cnt", cnt);
@@ -126,7 +133,73 @@ public class AOrderController {
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	//새 주문확인
+	@RequestMapping(value = "/aOrder/searchOrder", method = RequestMethod.GET)
+	public String searchOrder(Model model, HttpServletRequest request, AOrderDTO aOrderDTO, APageDTO pageDTO) throws Exception {
+		System.out.println("야호");
+		String stx = request.getParameter("stx");
+		System.out.println(request.getParameter("sfl") + " : 검색조건");
+		System.out.println(request.getParameter("stx") + " : 검색어");
+		
+		
+		List<AOrderDTO> result = new ArrayList<AOrderDTO>();
+		
+		List<AOrderDTO> list = AOrderService.goodsNmFindGoodsNo(stx);
+		
+		
+		if(list.size() > 0) {
+		for (int i = 0; i < list.size(); i++) {
+			AOrderDTO listDTO =  list.get(i);
+			
+			String goodsNo = String.valueOf(listDTO.getGoodsNo());
+			pageDTO.setContent(goodsNo);
+			pageDTO.setType("name");
+			System.out.println("goodsNo : "+pageDTO.getContent());
+			List<AOrderDTO> goodsNmList =  AOrderService.aOrderList(pageDTO);
+			
+			for (int j = 0; j < goodsNmList.size(); j++) {
+				AOrderDTO orderProductDTO = goodsNmList.get(j);
+				String[] DTOarr = orderProductDTO.getOrderProduct().split("-");
+				String[] DTOarr2 = DTOarr[0].split(",");
+				String[] DTOarr3 = DTOarr[1].split(",");
+				if (DTOarr2[0].equals(goodsNo)){
+					result.add(goodsNmList.get(j));
+					System.out.println("goodsNmList : "+goodsNmList.get(j));
+					
+					int orderCnt = Integer.parseInt(DTOarr3[0]);
+					orderProductDTO.setOrderCnt(orderCnt);
+					
+					int excepCnt = DTOarr2.length - 1;
+					orderProductDTO.setExcepCnt(excepCnt);
+					
+					int goodsNum = Integer.parseInt(DTOarr2[0]);
+					orderProductDTO.setGoodsNo(goodsNum);
+					
+					String orderProNm = AOrderService.getOrderProNm(orderProductDTO);
+					System.out.println("goodsNm : "+ orderProNm);
+					orderProductDTO.setGoodsNm(orderProNm);
+				}
+				
+			}
+		}
+		System.out.println("goodsNm22 : "+aOrderDTO.getGoodsNm());
+		}
+		
+		model.addAttribute("search","search");
+		model.addAttribute("cnt", result.size());
+		model.addAttribute("aOrderList", result);
+		
+		return "aOrder/aOrderList";
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	//주문 재고확인
 	@RequestMapping(value = "/aOrder/prepareProductList", method = RequestMethod.GET)
 	public String prepareProductList(AOrderDTO aDTO, Model model) {
 
@@ -382,6 +455,21 @@ public class AOrderController {
 		}
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/aOrder/deliveryCheckPro", method = RequestMethod.GET)
+	public int getdeliveryList(String postCode, AOrderDTO aOrderDTO) {
+		
+		System.out.println("잇힝");
+		System.out.println("PostCode : "+aOrderDTO.getPostCode());
+		int result = AOrderService.updateOrderStat(aOrderDTO);
+		if(result !=  0) {
+			return result;
+		}
+		return result;
+	}
+	
+	
 	
 	
 	

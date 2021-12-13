@@ -16,52 +16,9 @@
 <body>
 
 
-
-    <div id="seller_wrap">
-        <div id="seller_top" class="item1">
-            <a>GHSHOP 관리자센터</a>
-            <div class="seller_top_right">
-                <span>ADNUIN 관리자님</span><span><button>로그아웃</button></span>
-            </div>
-        </div>
-        <div id="seller_lnb" class="item2">
-            <div class="store"><a href="/">GH SH<span>O</span>P</a></div>
-            <ul class="seller_menu">
-                <li>
-                    <a class="seller_menu_tit">상품관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">쿠폰관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit">회원관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="#">submenu01</a></li>
-                        <li><a href="#">submenu02</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <a class="seller_menu_tit" onclick="">주문관리</a>
-                    <ol class="seller_menu_con">
-                        <li><a href="./aOrderList">전체주문목록</a></li>
-                        <li><a href="./newaOrderList">발주목록</a></li>
-                        <li><a href="./sendaOrderCheck">발송확인</a></li>
-                        <li><a href="./deliveryCheck">배송현황</a></li>
-                        <li><a href="./payback">환불내역</a></li>
-                        <li><a href="./sendback">반품내역</a></li>
-                        <li><a href="./exchange">교환내역</a></li>
-                    </ol>
-                </li>
-            </ul>
-        </div>
+  <%@include file="../inc/head.jsp"%>
+        <!--  left menu -->
+  <%@include file="../inc/left.jsp"%>
 
         <div id="seller_content" class="item3">
             <div class="local_ov01 local_ov">

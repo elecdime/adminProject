@@ -30,14 +30,14 @@ public class AEventServiceImpl implements AEventService{
 
 	@Override
 	public List<AEventDTO> couponList(PageDTO pDTO) {
-		List<AEventDTO> list = AEventDAO.couponList(pDTO);
-		for (int i = 0; i < list.size(); i++) {
-			AEventDTO aDTO = list.get(i);
-			if (aDTO.getType() != "3") {
-				aDTO.setGoodsNm("XXX");
-			}
-			
-		}
+//		List<AEventDTO> list = AEventDAO.couponList(pDTO);
+//		for (int i = 0; i < list.size(); i++) {
+//			AEventDTO aDTO = list.get(i);
+//			if (aDTO.getType() != "3") {
+//				aDTO.setGoodsNm("XXX");
+//			}
+//			
+//		}
 		return AEventDAO.couponList(pDTO);
 	}
 	
@@ -126,6 +126,11 @@ public class AEventServiceImpl implements AEventService{
 	@Override
 	public List<AEventDTO> giveCouponSearch_coup(String searchText) {
 		return AEventDAO.giveCouponSearch_coup(searchText);
+	}
+
+	@Override
+	public List<AEventDTO> delCouponSearch(String searchText) {
+		return AEventDAO.delCouponSearch(searchText);
 	}
 
 	

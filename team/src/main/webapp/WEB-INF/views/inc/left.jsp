@@ -14,7 +14,7 @@
                     <a class="seller_menu_tit">쿠폰관리</a>
                     <ol class="seller_menu_con">
                         <li><a href="${pageContext.request.contextPath}/aEvent/coupon">쿠폰리스트</a></li>
-                        <li><a href=""${pageContext.request.contextPath}/aEvent/all_coupon"">지급현황</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aEvent/all_coupon">지급현황</a></li>
                     </ol>
                 </li>
                 <li>
@@ -27,8 +27,11 @@
                 <li>
                     <a class="seller_menu_tit">주문관리</a>
                     <ol class="seller_menu_con">
-                        <li><a href="${pageContext.request.contextPath}/aOrder/aOrderList">주문리스트</a></li>
-                        <li><a href="${pageContext.request.contextPath}/aOrder/prepareProductList">신규 주문</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aOrder/aOrderList">전체주문목록</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aOrder/prepareProductList">재고부족목록</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aOrder/sendaOrderCheck">발송 확인</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aOrder/deliveryCheck">배송 확인</a></li>
+                        <li><a href="${pageContext.request.contextPath}/aOrder/payback">환불신청현황</a></li>
                     </ol>
                 </li>
             </ul>

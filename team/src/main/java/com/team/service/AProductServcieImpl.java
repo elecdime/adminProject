@@ -33,16 +33,6 @@ public class AProductServcieImpl implements AProductServcie {
 		// TODO Auto-generated method stub
 		return aProductDAO.category();
 	}@Override
-	public void insertProduct(AProductDTO aProductDTO) {
-		// TODO Auto-generated method stub
-		
-		Timestamp date = new Timestamp(System.currentTimeMillis());
-		aProductDTO.setRegDt(date);
-		aProductDTO.setModDt(date);
-	
-		
-		aProductDAO.insertProduct(aProductDTO);
-	}@Override
 	public ProductViewDTO productView(int goodsNo) {
 		// TODO Auto-generated method stub
 		return aProductDAO.productView(goodsNo);
@@ -58,5 +48,21 @@ public class AProductServcieImpl implements AProductServcie {
 	public void goodsDelete(int goodsNo) {
 		// TODO Auto-generated method stub
 		aProductDAO.goodsDelete(goodsNo);
+	}@Override
+	public int auto(int goodsNo) {
+		// TODO Auto-generated method stub
+		
+		 return aProductDAO.auto(goodsNo);
+	}
+	@Override
+	public void insertProduct(AProductDTO aProductDTO) {
+		// TODO Auto-generated method stub
+		
+		Timestamp date = new Timestamp(System.currentTimeMillis());
+		aProductDTO.setRegDt(date);
+		aProductDTO.setModDt(date);
+
+			
+		aProductDAO.insertProduct(aProductDTO);
 	}
 }

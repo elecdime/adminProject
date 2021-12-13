@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.team.mapper.AEventMapper">
+<mapper namespace="com.team.mappers.AEventMapper">
 	
     <insert id="insertCoupon">
    		 insert into coupon
@@ -137,6 +137,7 @@
     </delete>
     
     <delete id="deleteAll_coupon">
+    
 	    delete from all_coupon
 	    where giveCode = #{giveCode}
     </delete>
@@ -163,6 +164,12 @@
     </select>
     
     <select id="giveCouponSearch_coup" resultType="com.team.domain.AEventDTO">
+    	select name, code
+    	from coupon
+		where name like concat('%',#{searchText},'%')
+    </select>
+    
+    <select id="delCouponSearch" resultType="com.team.domain.AEventDTO">
     	select name, code
     	from coupon
 		where name like concat('%',#{searchText},'%')

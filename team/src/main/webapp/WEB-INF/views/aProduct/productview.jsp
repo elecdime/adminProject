@@ -9,12 +9,14 @@
 <title>GH SHOP</title>
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
+    
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <style type="text/css">
 .originImg {
 	width: 500px;
 	height: auto;
 }
+
 </style>
 </head>
 
@@ -30,26 +32,8 @@
          <%@include file="../inc/content.jsp"%>
 
 
-			<form name="flist" class="local_sch01 local_sch">
-				<input type="hidden" name="save_stx" value=""> <label
-					for="sca" class="sound_only">분류선택</label> <select name="sca"
-					class="category1" id="sca">
-					<option value="">전체분류</option>
-					<option value="">분류1</option>
-					<option value="">분류2</option>
-				</select> <label for="sfl" class="sound_only">검색대상</label> <select name="sfl"
-					id="sfl" class="category2">
-					<option value="it_name" selected="selected">상품명</option>
-					<option value="it_id">상품코드</option>
-					<option value="it_maker">제조사</option>
-					<option value="it_origin">원산지</option>
-					<option value="it_sell_email">판매자 e-mail</option>
-				</select> <label for="stx" class="sound_only">검색어</label> <input type="text"
-					name="stx" value="" id="stx" class="frm_input">
-				<button type="submit" value="검색" class="btn_submit">검색</button>
-			</form>
 
-
+<br>
 
 
 			<div id="listdiv">
@@ -66,65 +50,110 @@
 
 					<input type="hidden" name="n" value="${goods.goodsNo}" />
 
-					<div class="inputArea">
-						<!-- <label>1차 분류</label> <span class="category1"></span> --> 
-						<label>카테고리</label> <span class="category2">${goods.cateName}</span>
-					</div>
-			</div>
-			
-			<div class="inputArea" >
-				<label for="goodsNm">상품명</label> <span>${goods.goodsNm}</span> <label
-					for="makerNm">제조사</label> <span>${goods.makerNm}</span> <label
-					for="originNm">원산지</label> <span>${goods.originNm}</span>
-			</div>
-
-			<div class="inputArea">
-				<label for="goodsModelNo">모델명</label> <span>${goods.goodsModelNo}</span>
-
-				<label for="goodsPrice">상품가격</label> <span>${goods.goodsPrice}</span>
-				<label for="fixedPrice">정가</label> <span>${goods.fixedPrice}</span>
-
-			</div>
-
-			<div class="inputArea">
-				<label for="totalStock">상품수량</label> <span>${goods.totalStock}</span>
-
-			</div>
-				<div class="inputArea">
-						<label for="goodsWeight">상품 무게</label> 
-							 <span>${goods.goodsWeight}</span>
-
-					</div>
 					
-				<div class="inputArea">
-						<label for="shortDescription">짧은 설명</label> 
-							 <span>${goods.shortDescription}</span>
-
-					</div>
-					<div class="inputArea">
-						<label for="goodsDescription">상품 설명</label> 
-							 <span>${goods.goodsDescription}</span>
-
+			</div>
+			<table class="listTbl fixed">
+	<colgroup>
+		<col width="40">
+		<!-- checkbox -->
+		<col width="60">
+		<!-- 번호 -->
+		<col width="80">
+		<!-- 구분 -->
+		<col width="100">
+		<!-- 아이디 -->
+		<col width="100">
+		<!-- 이름 -->
+		<col width="120">
+		<!-- 핸드폰 -->
+		<col width="100">
+		<!-- 가입일 -->
+		<col width="100">
+		<!-- 최근방문일 -->
+		<col width="70">
+		<!-- 적립금 -->
+		<col width="70">
+		<!-- 적립금 -->
+		<col width="70">
+		<!-- 통합정보 -->
+		<col width="100">
+		<!-- 가입일 -->
+		<col width="100">
+		<!-- 가입일 -->
+		<col width="100">
+		<col width="100">
+		<col width="100">
+				<!-- 가입일 -->
+	
+	</colgroup>
+	<tbody>
+		<tr align="center" bgcolor="#5e718f">
+		
 			
-					<div class="inputArea">
-						<label for="memo">메모</label> 
-							<span>${goods.memo}</span>
+			<th class="listTitle">상품번호</th>
+	
+			<th class="listTitle">상품명</th>
+			<th class="listTitle">카테고리</th>
+	
+			<th class="listTitle"><a href="" class="link01">제조사</a></th>
+			
+			<th class="listTitle"><a href="" class="link01">원산지</a></th>
+			<th class="listTitle"><a href="" class="link01">모델명</a></th>
+			<th class="listTitle"><a href="" class="link01">상품가격</a></th>
+			<th class="listTitle"><a href="" class="link01">정가</a></th>
+			<th class="listTitle"><a href="" class="link01">상품수량</a></th>
+			<th class="listTitle"><a href="" class="link01">상품무게</a></th>
+			<th class="listTitle"><a href="" class="link01">짧은설명</a></th>
+			<th class="listTitle"><a href="" class="link01">상품 설명</a></th>
+			<th class="listTitle"><a href="" class="link01">메모</a></th>
+			<th class="listTitle"><a href="" class="link01">제조일</a></th>
+			<th class="listTitle"><a href="" class="link01">수정</a></th>
+			<th class="listTitle"><a href="" class="link01">삭제</a></th>
+		
+			<!-- <th class="listTitle" >주소</th> -->
+		</tr>
+			<tr>
+			<td class="listData">${goods.goodsNo}</td>
+			<td class="listData">${goods.goodsNm}</td>
+			<td class="listData">${goods.cateName}</td>
+			<td class="listData">${goods.makerNm}</td>
+			
+			<td class="listData">${goods.originNm}</td>
+			
+			<td class="listData">${goods.goodsModelNo}</td>
+			<td class="listData">${goods.goodsPrice}</td>
+			<td class="listData">${goods.fixedPrice}</td>
 
-					</div>
+			<td class="listData">${goods.totalStock}</td>
+			<td class="listData">${goods.goodsWeight}</td>
 
-			<div class="inputArea">
-				<label for="makeYmd">제조일</label> <span>${goods.makeYmd}</span>
-			</div>
-			<%-- 	<div class="inputArea">
-				<label for="salesStartYmd">상품판매시작일</label> <span>${goods.salesStartYmd}</span>
-			</div>
-			 --%>
+			<td class="listData">${goods.shortDescription}</td>
+			<td class="listData"> ${goods.goodsMustInfo}</td>
+ 			<td class="listData">${goods.memo}</td>		
+			<td class="listData">${goods.makeYmd}</td>
+			
+			<td class="listData">	<button type="button" id="modify_Btn" class="adbtn2">수정</button></td>
+			<td class="listData">	 <button type="button" id="delete_Btn" class="adbtn1">삭제</button></td>
+		
+			</tr>
+			</tbody>
+						 
+			</table>
+				
+			
+			
+						
+			
+	
+<em>상품내용</em>
+<br>
 
-			<div class="inputArea">
+	 <span >
+	 		${goods.goodsDescription}
+	 </span>
+</div>
 
-				<label for="goodsMustInfo">내용</label> <span>${goods.goodsMustInfo}</span>
-
-			</div>
+		
 		
 
 
@@ -154,9 +183,7 @@
 
 		</div>
 
-		<div class="inputArea">
-			<button type="button" id="modify_Btn" class="abtn">수정</button>
-			<button type="button" id="delete_Btn" class="abtn">삭제</button>
+		
 
 			<script>
   			var formObj = $("form[role='form']");
@@ -177,7 +204,7 @@
   					 }
   					});
  </script>
-		</div>
+		
 
 		</form>
 

@@ -95,7 +95,7 @@ public class AOrderServiceImpl implements AOrderService{
 	}
 	
 	////////////////////////////
-	
+	//주문 재고확인
 	@Override
 	public List<AOrderDTO> prepareProductList() {
 		return AOrderDAO.prepareProductList();
@@ -160,6 +160,21 @@ public class AOrderServiceImpl implements AOrderService{
 	@Override
 	public int updatePostCode(AOrderDTO aDTO) {
 		return AOrderDAO.updatePostCode(aDTO);
+	}
+	
+	@Override
+	public int updateOrderStat(AOrderDTO aDTO) {
+		return AOrderDAO.updateOrderStat(aDTO);
+	}
+
+	@Override
+	public List<AOrderDTO> searchOrderList() {
+		return AOrderDAO.searchOrderList();
+	}
+
+	@Override
+	public List<AOrderDTO> goodsNmFindGoodsNo(String content) {
+		return AOrderDAO.goodsNmFindGoodsNo(content);
 	}
 	
 	

@@ -15,4 +15,5 @@ public interface AProductServcie {
 	public ProductViewDTO productView(int goodsNo) ;
 	public void productUpdate(AProductDTO aProductDTO);
 	public void goodsDelete(int goodsNo);
+	public int auto(int goodsNo);
 }

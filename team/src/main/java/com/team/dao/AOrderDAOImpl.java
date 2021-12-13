@@ -91,7 +91,7 @@ public class AOrderDAOImpl implements AOrderDAO {
 	}
 	
 	///////////////////////////////
-	
+	//주문 재고확인
 	@Override
 	public List<AOrderDTO> prepareProductList() {
 		return sqlSession.selectList(namespace+".prepareProductList");
@@ -167,8 +167,25 @@ public class AOrderDAOImpl implements AOrderDAO {
 	public int updatePostCode(AOrderDTO aDTO) {
 		return sqlSession.update(namespace + ".updatePostCode", aDTO);
 	}
-		
 	
+	@Override
+	public int updateOrderStat(AOrderDTO aDTO) {
+		return sqlSession.update(namespace + ".updateOrderStat", aDTO);
+	}
+
+
+	@Override
+	public List<AOrderDTO> searchOrderList() {
+		return sqlSession.selectList(namespace + ".searchOrderList");
+	}
+
+
+	@Override
+	public List<AOrderDTO> goodsNmFindGoodsNo(String content) {
+		return sqlSession.selectList(namespace + ".goodsNmFindGoodsNo" , content);
+	}
+
+
 	
 
 

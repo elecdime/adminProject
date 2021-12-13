@@ -25,6 +25,13 @@ public class APageDTO {
 	private String type;
 	private String content;
 	
+	private String orderProNm;
+	private int orderCnt;
+	
+	private String orderProduct;
+	
+	
+	
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -103,15 +110,15 @@ public class APageDTO {
 	public void setOrderCnt(int orderCnt) {
 		this.orderCnt = orderCnt;
 	}
+	public String getOrderProduct() {
+		return orderProduct;
+	}
+	public void setOrderProduct(String orderProduct) {
+		this.orderProduct = orderProduct;
+	}
 	public int getCount() {
 		return count;
 	}
-	private String orderProNm;
-	private int orderCnt;
-	
-	
-	
-	
 	public void setCount(int count) {
 		this.count = count;
 		init();

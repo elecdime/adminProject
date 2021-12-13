@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,36 +40,33 @@ public class AEventController {
 		List<AEventDTO> couponList= AEventService.couponListNoPage();
 		for (int i = 0; i < couponList.size(); i++) {
 			aDTO = couponList.get(i);
-			
 			Timestamp giveTime = aDTO.getGiveDate();
 			Timestamp endTime = aDTO.getEndDate();
-			Timestamp today = new Timestamp(System.currentTimeMillis());
 			
-			if(giveTime.equals(endTime)) {
-				aDTO.setUseable("i");
+			LocalDateTime giveDate = giveTime.toLocalDateTime();
+			LocalDateTime endDate = endTime.toLocalDateTime();
+			LocalDateTime today = LocalDateTime.now();
+			
+			if (!(aDTO.getUseable().equals("i")) && !(aDTO.getUseable().equals("u")) ) {
 				
-			}else {
-				
-				if (aDTO.getUseable().equals("f") && today.after(giveTime)) {
+				if (today.isAfter(giveDate)) {
 					aDTO.setUseable("t");
 				}
 				
-				if (aDTO.getUseable().equals("f") && today.equals(giveTime)) {
-					aDTO.setUseable("t");
-				}
-				
-				if (aDTO.getUseable().equals("t") && today.after(endTime)) {
+				if (today.isAfter(endDate.plusDays(1))) {
 					aDTO.setUseable("f");
 				}
 			}
+				
 			AEventService.useableUpdate(aDTO);
 		}
 		
 		// 페이징
-		int pageSize = 10;
+		int pageSize = 7;
 		String pageNum = re.getParameter("pageNum");
 		if (pageNum == null) {
 			pageNum= "1";
+			
 		}
 		pDTO.setPageSize(pageSize);
 		pDTO.setPageNum(pageNum);
@@ -82,6 +80,7 @@ public class AEventController {
 		
 		int count = AEventService.getCouponCount();
 		pDTO.setCount(count);
+		
 		
 
 		model.addAttribute("couponList", AEventService.couponList(pDTO));
@@ -97,16 +96,11 @@ public class AEventController {
 	}
 	
 	@RequestMapping(value = "/aEvent/newCouponPro", method = RequestMethod.POST)
-	public String insertPro(AEventDTO aDTO) {
+	public String insertPro(AEventDTO aDTO, PageDTO pDTO) {
 		
-		try {
-			int num = AEventService.getMaxCoupon();
-			aDTO.setCode(++num);
-		} catch (Exception e) {
-			int num = 0;
-			aDTO.setCode(++num);
-		}
 		
+		int num = AEventService.getMaxCoupon();
+		aDTO.setCode(++num);
 		
 		String giveD = aDTO.getGiveD() + " 00:00:00";
 		String endD = aDTO.getEndD() + " 00:00:00";
@@ -129,7 +123,11 @@ public class AEventController {
 			aDTO.setMileage(Integer.parseInt(benefit));
 		}
 		
-        aDTO.setUseable("f");
+		if (aDTO.getNoEx()!= null) {
+			aDTO.setUseable("i");
+		}else {
+			aDTO.setUseable("f");
+		}
         
 		AEventService.insertCoupon(aDTO);
 		return "redirect:/aEvent/coupon";
@@ -147,9 +145,6 @@ public class AEventController {
 	public String giveCouponPro(AEventDTO aDTO) {
 		
 		int maxCode = AEventService.getMaxAll_coupon();
-		if (maxCode == 0) {
-			maxCode = 1;
-		}
 		
 		if (aDTO.getMemId().equals("all")) {
 			List<AEventDTO> memList = AEventService.getMemberList();
@@ -190,35 +185,34 @@ public class AEventController {
 	
 	@RequestMapping(value = "/aEvent/all_coupon", method = RequestMethod.GET)
 	public String all_couponList(AEventDTO aDTO, Model model, HttpServletRequest re, PageDTO pDTO) {
-		List<AEventDTO> all_couponList = AEventService.all_couponListNoPage();
 		
+		// 쿠폰만료 검사
+		List<AEventDTO> all_couponList = AEventService.all_couponListNoPage();
 		for (int i = 0; i < all_couponList.size(); i++) {
 			aDTO = all_couponList.get(i);
-			
-			Timestamp giveDate = aDTO.getGiveDate();
-	        Timestamp endDate = aDTO.getEndDate();
-	        Timestamp today = new Timestamp(System.currentTimeMillis());
-			
-			if(giveDate.equals(endDate)) {
-				aDTO.setUseable("i");
-				
-			}else {
-				
-				if (aDTO.getUseable().equals("f") && today.after(giveDate)) {
+			Timestamp giveTime = aDTO.getGiveDate();
+			Timestamp endTime = aDTO.getEndDate();
+					
+			LocalDateTime giveDate = giveTime.toLocalDateTime();
+			LocalDateTime endDate = endTime.toLocalDateTime();
+			LocalDateTime today = LocalDateTime.now();
+					
+			if (!(aDTO.getUseable().equals("i")) && !(aDTO.getUseable().equals("u")) ) {
+						
+				if (today.isAfter(giveDate)) {
 					aDTO.setUseable("t");
 				}
-				
-				if (aDTO.getUseable().equals("t") && today.after(endDate)) {
+						
+				if (today.isAfter(endDate.plusDays(1))) {
 					aDTO.setUseable("f");
 				}
 			}
-			
+						
 			AEventService.useableUpdate(aDTO);
-	        
 		}
 		
 		
-		int pageSize = 10;
+		int pageSize = 7;
 		String pageNum = re.getParameter("pageNum");
 		if (pageNum == null) {
 			pageNum= "1";
@@ -245,7 +239,7 @@ public class AEventController {
 	@RequestMapping(value = "/aEvent/deleteAll_coupon", method = RequestMethod.GET)
 	public String deleteAll_coupon(Model model, PageDTO pDTO, HttpServletRequest re) {
 		
-		int pageSize = 10;
+		int pageSize = 7;
 		String pageNum = re.getParameter("pageNum");
 		if (pageNum == null) {
 			pageNum= "1";
@@ -269,36 +263,46 @@ public class AEventController {
 		return "aEvent/deleteAll_coupon";
 	}
 	
+	
+	
 	@RequestMapping(value = "/aEvent/deleteAll_couponPro", method = RequestMethod.GET)
 	public String deleteAll_couponPro(HttpServletRequest re) {
 		AEventDTO aDTO = new AEventDTO();
-		
-		System.out.println("giveCode" + re.getParameter("giveCodeStr"));
-		System.out.println("확인");
 		
 		int giveCode = Integer.parseInt(re.getParameter("giveCodeStr"));
 		aDTO.setGiveCode(giveCode);
 		AEventService.deleteAll_coupon(aDTO);
 		
-		System.out.println("aDTO.getGiveCode : " + aDTO.getGiveCode());
 		return "redirect:/aEvent/deleteAll_coupon";
 		
 	}
 	
 	@RequestMapping(value = "/aEvent/searchCouponList", method = RequestMethod.POST)
-		public String searchCouponList(Model model,AEventDTO aDTO) {
-			System.out.println("검색내용" + aDTO.getSearchText());
-			System.out.println("검색컬럼" + aDTO.getSearchCulumn());
-			model.addAttribute("couponList", AEventService.searchCouponList(aDTO));
-			return "aEvent/coupon";
+	public String searchCouponList(Model model,AEventDTO aDTO) {
+		
+		model.addAttribute("couponCount", AEventService.searchCouponList(aDTO).size());
+		model.addAttribute("isSearch", "search");
+		model.addAttribute("couponList", AEventService.searchCouponList(aDTO));
+		return "aEvent/coupon";
 			
 	}
 	@RequestMapping(value = "/aEvent/searchAll_couponList", method = RequestMethod.POST)
 	public String searchAll_couponList(Model model,AEventDTO aDTO) {
-		System.out.println("검색내용" + aDTO.getSearchText());
-		System.out.println("검색컬럼" + aDTO.getSearchCulumn());
+		
+		model.addAttribute("all_couponCount", AEventService.searchAll_couponList(aDTO).size());
+		model.addAttribute("isSearch", "search");
 		model.addAttribute("all_couponList", AEventService.searchAll_couponList(aDTO));
 		return "aEvent/all_coupon";
+		
+	}
+	
+	@RequestMapping(value = "/aEvent/searchDel_couponList", method = RequestMethod.POST)
+	public String searchDel_couponList(Model model,AEventDTO aDTO) {
+		
+		model.addAttribute("all_couponCount", AEventService.searchAll_couponList(aDTO).size());
+		model.addAttribute("isSearch", "search");
+		model.addAttribute("all_couponList", AEventService.searchAll_couponList(aDTO));
+		return "aEvent/deleteAll_coupon";
 		
 	}
 	

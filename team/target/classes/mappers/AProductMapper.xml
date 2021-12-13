@@ -90,10 +90,14 @@
 		SELECT cateName, cateCode,
 		cateCodeRef, LEVEL FROM cte;
 	</select>
-
+	<select id = "auto" resultType="java.lang.Integer">
+	SELECT goodsNo FROM product ORDER BY goodsNo DESC LIMIT 1;
+	</select>
+	
 	<insert id="insertProduct">
 		INSERT INTO product
 		(
+		goodsNo,
 		goodsNm,
 		makerNm,
 		originNm,
@@ -117,6 +121,7 @@
 		memo
 		) VALUES
 		(
+		(SELECT max(goodsNo)+1 from product ALIAS_FOR_SUBQUERY),
 		#{goodsNm},
 		#{makerNm},
 		#{originNm},

@@ -1,11 +1,5 @@
 package com.team.domain;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Data
-@Getter
-@Setter
 public class PageDTO {
 	
 	private int pageSize;
@@ -13,14 +7,11 @@ public class PageDTO {
 	private int currentPage;
 	private int startRow;
 	private int endRow;
-	
 	private int count;
-	
 	private int pageBlock;
 	private int startPage;
 	private int endPage;
 	private int pageCount;
-	
 	
 	
 	
@@ -54,12 +45,30 @@ public class PageDTO {
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+		init();
+	}
+	public void init() {
+		pageBlock=10;
+		startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		endPage=startPage+pageBlock-1;
+		pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if (endPage > pageCount) {
+			endPage=pageCount;
+		}
+	}
+	
 	public int getPageBlock() {
 		return pageBlock;
 	}
 	public void setPageBlock(int pageBlock) {
 		this.pageBlock = pageBlock;
 	}
+	
 	public int getStartPage() {
 		return startPage;
 	}
@@ -78,24 +87,6 @@ public class PageDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-		init();
-	}
-	public void init() {
-		pageBlock=10;
-		startPage=(currentPage-1)/pageBlock*pageBlock+1;
-		endPage=startPage+pageBlock-1;
-		pageCount=count/pageSize+(count%pageSize==0?0:1);
-		if (endPage > pageCount) {
-			endPage=pageCount;
-		}
-	}
-	
-	
 	
 	
 	

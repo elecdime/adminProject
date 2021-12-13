@@ -9,17 +9,17 @@
     <title>GH SHOP</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
-    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 </head>
 
 
 <body>
 
-
-
-  <%@include file="../inc/head.jsp"%>
+<%@include file="../inc/head.jsp"%>
         <!--  left menu -->
-  <%@include file="../inc/left.jsp"%>
+ <%@include file="../inc/left.jsp"%>
+
+   
 
         <div id="seller_content" class="item3">
             <div class="local_ov01 local_ov">
@@ -45,7 +45,7 @@
                 <button type="submit" value="검색" class="btn_submit">검색</button>
             </form>
 
-            <div class="formTitle">상품준비 리스트 <span>검색조건에 해당하는 주문 리스트를 확인 할수 있습니다.</span></div>
+            <div class="formTitle">재고부족 주문 리스트 <span>검색조건에 해당하는 주문 리스트를 확인 할수 있습니다.</span></div>
 <!--             <div class="adBtn"><button class="adbtn1">상품등록</button><button class="adbtn2">상품수정</button></div> -->
             <div id="listdiv">
                 <form name="signForm" method="post" onsubmit="return false;">
@@ -60,7 +60,6 @@
 								<th class="listTitle">주문자</th>
 								<th class="listTitle">총 금액</th>
 								<th class="listTitle">주문상태</th>
-								<th class="listTitle">클레임상태</th>
 
 							</tr>
 
@@ -100,7 +99,6 @@
 									<td class="listData"><c:out
 											value="${prepareProductList.amount} 원" /></td>
 									<td class="listData"><c:out value="${orderStat }" /></td>
-									<td class="listData"><c:out value=" " /></td>
 
 
 
@@ -130,23 +128,14 @@
             
 
         </div>
-    </div>
-    <!--  seller_wrap  -->
 
-
-    <script>
-					$(document).ready(
-							function() {
-								$(".seller_menu_tit").click(
-										function() {
-											$(".seller_menu_con").removeClass(
-													'on');
-											$(this).parent().find(
-													".seller_menu_con")
-													.toggleClass('on');
-										});
-							});
-				</script>
-	
+<script>
+        $(document).ready(function() {
+            $(".seller_menu_tit").click(function() {
+                $(".seller_menu_con").removeClass('on');
+                $(this).parent().find(".seller_menu_con").toggleClass('on');
+            });
+        });
+    </script>
 </body>
 </html>

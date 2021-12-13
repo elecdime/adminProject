@@ -26,6 +26,17 @@ public class AOrderDTO {
 	
 	private String resident;
 	private String orderAddr;
+	private String orderZipcode;
+	private String orderSub;
+	private String orderPhone;
+	private String postCode;
+	private int amount;
+	private String orderProduct;
+	private String orderStat;
+	private int totalStock;
+	private String beforOrderId;
+
+	private int product;
 	public String getOrderId() {
 		return orderId;
 	}
@@ -226,17 +237,6 @@ public class AOrderDTO {
 		this.recipient = recipient;
 	}
 
-	private String orderZipcode;
-	private String orderSub;
-	private String orderPhone;
-	private String postCode;
-	private int amount;
-	private String orderProduct;
-	private String orderStat;
-	private int totalStock;
-	private String beforOrderId;
-
-	private int product;
 	private int quantity;
 
 	private String recipient;

@@ -13,7 +13,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
     
     <style type="text/css">
-.thumbImg{width: 200px; height: 300px;}
+.thumbImg{width: 100px; height: 100px;}
 </style>
 </head>
 
@@ -108,7 +108,7 @@
 		
 				
  							
- 					<td class="listData">	<img src="${aProductDTO.gdsThumbImg}" class="thumbImg"/>
+ 					<td class="listData">	<img src="${aProductDTO.imagePath}" class="thumbImg"/>
 						</td>	
 				<td class="listData"><b><a href="/aProduct/productview?n=${aProductDTO.goodsNo}">${aProductDTO.goodsNo}</a></b>
 					</nobr></td>

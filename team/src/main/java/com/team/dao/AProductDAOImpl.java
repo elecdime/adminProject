@@ -52,4 +52,9 @@ public void goodsDelete(int goodsNo) {
 	// TODO Auto-generated method stub
 	sqlSession.delete(namespace+".goodsDelete",goodsNo);
 }
+@Override
+public int auto(int goodsNo) {
+	// TODO Auto-generated method stub
+	return sqlSession.selectOne(namespace+".auto","goodsNo");
+}
 }

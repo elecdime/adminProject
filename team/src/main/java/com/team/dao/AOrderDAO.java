@@ -13,7 +13,7 @@ public interface AOrderDAO {
 	//주문목록 조회
 	public List<AOrderDTO> aOrderList(APageDTO pageDTO) throws Exception;
 	
-//	//새 주문목록 조회
+	//주문 재고확인
 	public List<AOrderDTO> prepareProductList();
 
 //	//발송확인 조회
@@ -54,7 +54,9 @@ public interface AOrderDAO {
 	public void updateOrderId(AOrderDTO aDTO);
 	public AOrderDTO searchGoodsNm(AOrderDTO aDTO);
 	public int updatePostCode(AOrderDTO aDTO);
-
+	public int updateOrderStat(AOrderDTO aDTO);
+	public List<AOrderDTO> searchOrderList();
+	public List<AOrderDTO> goodsNmFindGoodsNo(String content);
 
 	
 	

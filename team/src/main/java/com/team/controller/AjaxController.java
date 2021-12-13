@@ -23,11 +23,9 @@ public class AjaxController {
 	@RequestMapping(value = "/aEvent/giveCouponSearch", method = RequestMethod.GET)
 	public ResponseEntity<List<AEventDTO>> giveCouponSearch(HttpServletRequest re) {
 		String searchText = re.getParameter("searchText");
-		System.out.println(searchText);
 		List<AEventDTO> result = AEventService.giveCouponSearch(searchText);
 		
 		ResponseEntity<List<AEventDTO>> entity = new ResponseEntity<List<AEventDTO>>(result, HttpStatus.OK);
-		System.out.println(result.get(0));
 		return entity;
 		
 	}
@@ -39,7 +37,16 @@ public class AjaxController {
 		List<AEventDTO> result = AEventService.giveCouponSearch_coup(searchText);
 		
 		ResponseEntity<List<AEventDTO>> entity = new ResponseEntity<List<AEventDTO>>(result, HttpStatus.OK);
-		System.out.println(result.get(0));
+		return entity;
+		
+	}
+	
+	@RequestMapping(value = "/aEvent/delCouponSearch", method = RequestMethod.GET)
+	public ResponseEntity<List<AEventDTO>> delCouponSearch(HttpServletRequest re) {
+		String searchText = re.getParameter("searchText");
+		List<AEventDTO> result = AEventService.delCouponSearch(searchText);
+		
+		ResponseEntity<List<AEventDTO>> entity = new ResponseEntity<List<AEventDTO>>(result, HttpStatus.OK);
 		return entity;
 		
 	}

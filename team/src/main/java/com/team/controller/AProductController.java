@@ -106,7 +106,7 @@ public class AProductController {
 
 	@RequestMapping(value = "/aProduct/productInsertPro", method = RequestMethod.POST)
 	public String insertProductPro(AProductDTO aDTO, MultipartFile file) throws Exception {
-
+	
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFilesUtils.calcPath(imgUploadPath);
 		String fileName = null;
@@ -122,7 +122,7 @@ public class AProductController {
 				File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 
 		aProductServcie.insertProduct(aDTO);
-		return "redirect:/aProduct/product";
+		return " direct:/aProduct/product";
 
 	}
 

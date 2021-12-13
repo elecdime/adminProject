@@ -29,9 +29,18 @@
 		
 		
 		ORDER BY o.orderId desc
+		<if test="type == null">		
 		limit #{startRow}, #{pageSize}
-		
+		</if>
 	</select>
+	
+	<select id="goodsNmFindGoodsNo" resultType="com.team.domain.AOrderDTO">
+		select goodsNo, goodsNm
+		from product
+		where goodsNm LIKE CONCAT('%',#{content},'%')
+	</select>
+	
+	
 	
 	
 	<!-- 	발송확인 조회 및 검색 -->
@@ -46,9 +55,9 @@
 					<when test="type == 'num'">
 					where o.orderId LIKE CONCAT(#{content})
 					</when>
-					<when test="type == 'name'">
-					where o.orderProduct LIKE CONCAT('%',#{content},'%')
-					</when>
+<!-- 					<when test="type == 'name'"> -->
+<!-- 					where o.orderProduct LIKE CONCAT('%',#{content},'%') -->
+<!-- 					</when> -->
 					<when test="type == 'user'">
 					where o.memId LIKE CONCAT('%',#{content},'%')
 					</when>
@@ -69,17 +78,20 @@
 		<if test="type != null">
 			<choose>
 				<when test="type == 'num'">
-				where o.orderId LIKE CONCAT(#{content})
+				 WHERE o.orderId LIKE CONCAT(#{content}) AND (o.orderStat = '4' or o.orderStat = '5')
 				</when>
 				<when test="type == 'name'">
-				where o.postCode LIKE CONCAT(#{content})
+				 WHERE o.postCode LIKE CONCAT(#{content}) AND (o.orderStat = '4' or o.orderStat = '5')
 				</when>
 				<when test="type == 'user'">
-				where o.memId LIKE CONCAT('%',#{content},'%')
+				 WHERE o.memId LIKE CONCAT('%',#{content},'%')AND (o.orderStat = '4' or o.orderStat = '5')
 				</when>
 			</choose>
+			
 		</if>
-			AND o.orderStat = '4'
+		<if test="type == null">
+		WHERE o.orderStat = '4' or o.orderStat = '5'		
+		</if>
 		ORDER BY o.orderId desc		
 		limit #{startRow}, #{pageSize}
 	</select>
@@ -109,7 +121,7 @@
 		FROM orders as o 
 		join member as m
 		on m.memId = o.memId
-		where orderStat = '4'
+		where orderStat = '4' or orderStat = '5'
 		
 	</select>
 	
@@ -225,7 +237,14 @@
 		update orders set postCode = #{postCode}, orderStat = '4' where orderId =  #{orderId}
 	</update>
 	
-
+	<update id = "updateOrderStat" >
+		update orders set orderStat = '5' where postCode = #{postCode}
+	</update>
+	
+	<select id="searchOrderList" resultType="com.team.domain.AOrderDTO">
+		select *
+		from orders
+	</select>
 	
 	
 

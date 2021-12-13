@@ -25,6 +25,7 @@ public interface AEventDAO {
 	public int getAll_couponCount();
 	public List<AEventDTO> giveCouponSearch(String searchText);
 	public List<AEventDTO> giveCouponSearch_coup(String searchText);
+	public List<AEventDTO> delCouponSearch(String searchText);
 	
 	
 }

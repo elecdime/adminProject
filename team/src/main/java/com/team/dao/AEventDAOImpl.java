@@ -16,7 +16,7 @@ public class AEventDAOImpl implements AEventDAO{
 	
 	@Inject
 	private SqlSession sqlSession;
-	private final static String namespace = "com.team.mapper.AEventMapper";
+	private final static String namespace = "com.team.mappers.AEventMapper";
 
 	@Override
 	public void insertCoupon(AEventDTO aDTO) {
@@ -46,8 +46,10 @@ public class AEventDAOImpl implements AEventDAO{
 
 	@Override
 	public int getMaxCoupon() {
-		
-		return sqlSession.selectOne(namespace + ".getMaxCoupon");
+		if (sqlSession.selectOne(namespace+".getMaxCoupon") == null) {
+			return 0;
+		}
+		return sqlSession.selectOne(namespace+".getMaxCoupon");
 	}
 
 	@Override
@@ -71,8 +73,8 @@ public class AEventDAOImpl implements AEventDAO{
 
 	@Override
 	public void deleteCoupon(int code) {
-		sqlSession.delete(namespace + ".deleteCoupon",code);
 		sqlSession.delete(namespace + ".deleteAll_coupon",code);
+		sqlSession.delete(namespace + ".deleteCoupon",code);
 	}
 
 	@Override
@@ -83,6 +85,9 @@ public class AEventDAOImpl implements AEventDAO{
 
 	@Override
 	public int getMaxAll_coupon() {
+		if (sqlSession.selectOne(namespace+".getMaxAll_coupon") == null) {
+			return 0;
+		}
 		return sqlSession.selectOne(namespace + ".getMaxAll_coupon");
 	}
 
@@ -119,6 +124,11 @@ public class AEventDAOImpl implements AEventDAO{
 	@Override
 	public List<AEventDTO> giveCouponSearch_coup(String searchText) {
 		return sqlSession.selectList(namespace+".giveCouponSearch_coup",searchText);
+	}
+
+	@Override
+	public List<AEventDTO> delCouponSearch(String searchText) {
+		return sqlSession.selectList(namespace + ".delCouponSearch", searchText);
 	}
 	
 
