@@ -32,7 +32,7 @@
 	</beans:bean>
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="C:\\Users\\ITWILL\\git\\adminProject2\\team\\src\\main\\webapp\\resources"></beans:constructor-arg>
+		<beans:constructor-arg value="C:\\Users\\내 컴퓨터\\git\\adminProject\\team\\src\\main\\webapp\\resources"></beans:constructor-arg>
 		
 		
 

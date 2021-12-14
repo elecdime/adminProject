@@ -113,8 +113,8 @@
 
 					</div>
 					<div class="inputArea">
-						<label for="goodsDescription">상품 설명</label> 
-							 <input type="text" name ="goodsDescription" value="${goods.goodsDescription}">
+						<label for="goodsMustInfo">상품 설명</label> 
+							 <input type="text" name ="goodsMustInfo" value="${goods.goodsMustInfo}">
 
 			
 					<div class="inputArea">
@@ -130,8 +130,8 @@
 
 					<div class="inputArea">
 
-						<label for="goodsMustInfo">내용</label>
-						<textarea rows="4" cols="50" name="goodsMustInfo">${goods.goodsMustInfo}</textarea>
+						<label for="goodsDescription">내용</label>
+						<textarea rows="4" cols="50" name="goodsDescription">${goods.goodsDescription}</textarea>
 
 					</div>
 										<script>
@@ -142,7 +142,7 @@
    							filebrowserUploadUrl : "/aProduct/ckUpload"
  								};
  
- 							CKEDITOR.replace("goodsMustInfo", ckeditor_config);
+ 							CKEDITOR.replace("goodsDescription", ckeditor_config);
 </script>
 
 					<div class="inputArea">
