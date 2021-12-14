@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.AOrdersMapper">
+
+	<select id="getproductinfo" resultType="com.team.domain.ListDTO">
+		select  goodsNm , imagePath , goodsPrice from product where goodsNO = #{goodsNo}
+	</select>
+	
+	<select id="getmemberinfo" resultType="com.team.domain.AMemberDTO">
+		select  memNm , email , zipcode , address , addressSub , addressReference , phone from member where memId = #{memId}
+	</select>
+	
+	<insert id="insertorder">
+		insert into orders(orderId , memId , orderProduct , orderAddr , orderSub , orderZipcode , orderPhone , postCode , amount , resipient , orderDate)
+		values((select IFNULL(MAX(orderId),0)+1 from orders C), #{memId} , #{orderProduct} , #{orderAddr} , #{orderSub} , #{orderZipcode} , #{orderPhone} , #{postCode} , #{amount} , #{resipient} , #{orderDate}) 
+	</insert>
+
+</mapper>

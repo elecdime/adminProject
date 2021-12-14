@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.ACommentMapper">
+	
+	<select id="getcomment" resultType="com.team.domain.ACommentDTO">
+		select * from comment where recomment is null and goodsNo = #{goodsNo} order by commentNum desc limit #{page} , #{pagesize}
+	</select>
+	
+	<select id="getDcomment" resultType="com.team.domain.ACommentDTO">
+		select a.memId , a.star , a.recomment , a.comment , a.commentNum , a.commentTime , a.picture ,  b.count from comment a left outer join 
+		(select recommendCommentNum, count(recommendCommentNum) count from recommend group by recommendCommentNum) b 
+		on a.commentNum = b.recommendCommentNum where recomment is null and goodsNo = #{goodsNo} order by b.count desc , a.commentNum desc limit #{page} , #{pagesize}
+	</select>
+	
+	<select id="getcommentCount" resultType="_int">
+		select count(comment) from comment where recomment is null and goodsNo = #{goodsNo}
+	</select>
+	
+	<insert id="insertcomment">
+		insert into comment(memId , star,comment,commentNum,commentTime , goodsNo ) values(#{memId} ,#{star} ,#{comment} ,(select IFNULL(MAX(commentNum),0)+1 from comment C) , #{commentTime} , #{goodsNo})
+	</insert>
+	
+	<select id="getrecomment" resultType="com.team.domain.ACommentDTO">
+		select * from comment where recomment =	#{commentNum} order by commentNum asc limit #{page} , #{pagesize}
+	</select>
+	
+	<select id="getrecommentCount" resultType="_int">
+		select count(comment) from comment where recomment = #{commentNum}
+	</select>
+	
+	<insert id="insertrecomment">
+		insert into comment(memId , recomment,comment,commentNum,commentTime) values(#{memId} , #{recomment} ,#{comment} ,(select IFNULL(MAX(commentNum),0)+1 from comment C) , #{commentTime})
+	</insert>
+	
+	<update id="insertpicture">
+		update comment set picture = #{picture} where commentNum = (select re.num from (select max(commentNum) num from comment) re);
+	</update>
+
+	<select id="checkcomment" resultType="com.team.domain.ACommentDTO">
+		select * from comment where recomment is null and memId = #{memId} and goodsNo = #{goodsNo}
+	</select>
+	
+	<select id="getFilename" resultType="String">
+		select picture from comment where commentNum = #{commentNum}
+	</select>
+	
+	<delete id="deletecomment">
+		delete from comment where commentNum = #{commentNum} or recomment = #{commentNum}
+	</delete>
+	
+	<delete id="deleterecommend">
+		delete from recommend where recommendCommentNum = #{commentNum}
+	</delete>
+	
+	<select id="checkrecomment" resultType="com.team.domain.ACommentDTO">
+		select * from comment where recomment = #{commentNum} and memId = #{memId}
+	</select>
+	
+	<delete id="deleterecomment">
+		delete from comment where commentNum = #{commentNum}
+	</delete>
+	
+	<update id="updatecomment">
+		update comment set star = #{star} , comment = #{comment} , picture = "update" where commentNum = #{commentNum}
+	</update>
+	
+	<update id="deletefile">
+		update comment set picture = "update" where picture = #{picture}
+	</update>
+	
+	<update id="updatefile">
+		update comment set picture = #{picture} where picture = "update"
+	</update>
+	
+	<update id="updaterecomment">
+		update comment set comment = #{comment} where memId = #{memId} and recomment = #{recomment}
+	</update>
+	
+	<update id="updatecommentNofile">
+		update comment set star = #{star} , comment = #{comment} where commentNum = #{commentNum}
+	</update>
+	
+	<select id="getrecommendCount" resultType="_int">
+		select count(recommendCommentNum) from recommend where recommendCommentNum = #{commentNum}
+	</select>
+	
+	<insert id="recommendAdd">
+		insert into recommend(memId , recommendCommentNum) values(#{memId} , #{commentNum})
+	</insert>
+	
+	<select id="checkmyComment" resultType="_int">
+		 select exists (select * from comment where memId=#{memId} and commentNum=#{commentNum})
+	</select>
+	
+	<select id="checkmyReommend" resultType="_int">
+		 select exists (select * from recommend where memId=#{memId} and recommendCommentNum=#{commentNum})
+	</select>
+	
+	<delete id="recommendRemove">
+		delete from recommend where memId = #{memId} and recommendCommentNum=#{commentNum}
+	</delete>
+	
+</mapper>

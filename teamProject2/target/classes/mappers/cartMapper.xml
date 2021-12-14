@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.cartMapper">
+	
+	<select id="getCartList" resultType = "com.team.domain.CartDTO">
+		SELECT * FROM cart where memId = #{memId}
+    </select>
+    
+    <delete id="deleteCart">
+    	DELETE FROM cart WHERE cartId = #{cartId}
+    </delete>
+    
+    <delete id="deleteAllCart">
+    	DELETE FROM cart WHERE memId = #{memId}
+    </delete>
+    
+    <select id = "getCartCount" resultType = "java.lang.Integer">
+    	select ifnull((select count(*) from cart group by memId having memId = #{memId}), 0) as cartCount from cart union all select 0 as cartCount from dual limit 1;
+    </select>
+    
+    <insert id = "insertCart">
+    	insert into cart(memId, goodsId, goodsNm, goodsPrice, imagePath, amount) values(#{memId},#{goodsId},#{goodsNm},#{goodsPrice},#{imagePath},#{amount})
+    </insert>
+	
+	<select id="getProduct" resultType = "com.team.domain.ListDTO">
+		SELECT imagePath,goodsNm,goodsPrice from product where goodsNo= #{goodsNo}
+	</select>
+	
+	<select id="getCart" resultType = "com.team.domain.CartDTO">
+		SELECT * from cart where cartId= #{cartId}
+	</select>
+	
+	<select id="getIsAmount" resultType = "java.lang.Integer">
+		select count(amount) from cart where memId = #{memId} and goodsId = #{goodsId};
+	</select>
+	
+	<select id="getAmount" resultType = "java.lang.Integer">
+		select amount from cart where memId = #{memId} and goodsId = #{goodsId};
+	</select>
+	
+	
+	
+	<update id="updateAmount">
+		UPDATE cart SET amount = #{amount} WHERE memId =#{memId} AND goodsId= #{goodsId}
+	</update>
+	
+
+	
+</mapper>

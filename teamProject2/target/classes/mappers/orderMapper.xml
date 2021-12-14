@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.orderMapper">
+
+   <insert id = "insertOrder">
+    	insert into orders(orderId, memId, orderProduct, orderAddr,orderSub, orderZipcode, orderPhone, amount, recipient) values(#{orderId}, #{memId},#{orderProduct},#{orderAddr}, #{orderSub}, #{orderZipcode},#{orderPhone},#{amount}, #{resipient})
+    </insert>
+    
+    
+    
+  
+     <select id = "orderCount" resultType = "java.lang.Integer">
+		select ifnull((select count(*) from orders), 0) as orderCount from orders union all select 0 as orderCount from dual limit 1
+    </select>
+    
+    <select id = "getOrderList" resultType = "com.team.domain.OrderDTO">
+    	SELECT *, goodsNo, goodsNm, imagePath FROM orders join (select * from product where goodsNo = ${goodsNo}) where memId = #{memId} order by orderDate desc limit 5;
+    </select>
+    
+</mapper>

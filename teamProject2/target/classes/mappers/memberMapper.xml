@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.memberMapper">
+
+   <insert id="insertMember">
+		INSERT INTO member(memId, memPw, memNm, mal_cert, email, phone, birthDt, zipcode, address, addressSub, addressReference, Accumulation, date) VALUES(#{memId}, #{memPw}, #{memNm}, #{mal_cert}, #{email}, #{phone}, #{birthDt}, #{zipcode}, #{address}, #{addressSub}, #{addressReference}, #{Accumulation}, #{date})
+   </insert>
+
+	<select id="idCheck" parameterType="String" resultType="String">
+        SELECT * FROM member WHERE memId= #{memId}
+    </select>
+
+	<select id="userCheck" resultType = "com.team.domain.MemberDTO">
+		SELECT *, (select count(*) from cart where memId = #{memId}) cartSize FROM member WHERE memId = #{memId} AND memPw = #{memPw}
+	</select>
+	
+	<select id="getMember" resultType = "com.team.domain.MemberDTO">
+		SELECT * FROM member WHERE memId = #{memId}
+	</select>
+	
+	<select id="findIdOk" resultType = "com.team.domain.MemberDTO">
+		SELECT * FROM member WHERE (memNm = #{memNm} AND birthDt = #{birthDt} AND email = #{email});
+	</select>
+	
+	<delete id="deleteMember">
+		DELETE FROM member WHERE memId=#{memId}
+	</delete>
+	
+	<update id="updateMember">
+		UPDATE member SET memNm = #{memNm} where memId = #{memId}
+		<!-- 수정항목 추가해야함 -->
+	</update>
+	
+	<select id="findId">
+		select memId FROM member WHERE (email = #{email} AND memNm = #{memNm} AND birthDt = #{birthDt})
+	</select>
+	
+	<select id="findPass" resultType = "com.team.domain.MemberDTO">
+		select memPw FROM member WHERE (memId = #{memId} AND email = #{email})
+	</select>
+	
+	<update id="changePass">
+		UPDATE member SET memPw = #{memPw} where memId = #{memId}
+	</update>
+	
+	<insert id = "mailCodeInsert">
+		insert into mail (malCode, email, malCreateDt) values (#{malCode}, #{email}, #{malCreateDt});
+	</insert>
+	
+	<select id="mailCodeSelect" parameterType="String" resultType="String">
+		SELECT malCode FROM mail WHERE email = #{email}
+	</select>
+	
+	<update id = "mailCodeUpdate">
+		UPDATE mail SET malCode = #{malCode} where email = #{email};
+	</update>
+	
+	<update id = "findPassOk">
+		UPDATE member SET memPw = #{memPw} where memId = #{memId};
+	</update>
+	
+</mapper>

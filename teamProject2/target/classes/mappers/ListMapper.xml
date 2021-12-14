@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.ListMapper">
+
+	<sql id="AllList">SELECT goodsNo,imagePath,goodsNm,fixedPrice,goodsPrice from product </sql>
+	
+		<!-- 검색어삽입 -->
+		<insert id="insertSearch">
+			<if test="keyword!=null and keyword!=''">
+			insert into popular(pp_id,keyword,pp_date,pp_ip) values(#{pp_id},#{keyword},#{pp_date},#{pp_ip}) 
+			</if>
+		</insert>
+		<!-- 인기검색어 -->
+		<select id="HotKeyword" resultType="com.team.domain.HotKeywordDTO">
+			 select keyword from popular group by keyword order by count(keyword) desc limit 5
+		</select >
+		<!-- 검색어삽입 조회 끝-->
+		
+		<!-- 리스트 시작  -->
+		<!-- 오늘 등록 신상품 -->
+		<select id="getTodayNewList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>   where salesStartYmd=curdate() order by goodsNo desc 
+		</select >
+		
+		<!-- 인기상품 -->
+		<!-- 1번째 버튼 -->
+			<select id="healthList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>  where cateCode regexp 'm' order by salesStartYmd desc, orderCnt desc,hitCnt desc
+			</select >
+		<!-- 가공식품 -->
+			<select id="getProcessedList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>  where cateCode regexp 'a|b' order by salesStartYmd desc, orderCnt desc,hitCnt desc
+			</select >
+		<!-- 신선식품 -->
+			<select id="getfreshList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>  where cateCode regexp 'c' order by salesStartYmd desc, orderCnt desc,hitCnt desc
+			</select >
+		<!-- 차/티백 -->
+			<select id="getTeaList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>  where cateCode regexp 'e' order by salesStartYmd desc, orderCnt desc,hitCnt desc
+			</select >
+		<!-- 생활잡화 -->
+			<select id="getDailyList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include>  where cateCode regexp 'f' order by salesStartYmd desc, orderCnt desc,hitCnt desc
+			</select >
+		<!-- 주간 베스트 -->
+			<select id="weekBestList" resultType="com.team.domain.ListDTO">
+			<include refid="AllList"></include> 
+			where salesStartYmd>=curdate()-7 order by orderCnt desc, wishCnt desc limit 5
+			</select >
+		<!-- 메인 배너 -->
+			<select id="MainBanner" resultType="com.team.domain.ListDTO">
+				select goodsNo,imagePath,memo from product where memo='MainBanner'
+			</select>
+		<!-- menuCategory -->
+			<select id="menuCategory" resultType="com.team.domain.CartegoryDTO">
+				select * from goods_category
+			</select>
+
+		<!-- 완료main_search  -->
+		<!-- 조회구분 
+		상품명 : goodsNm
+		제조사:makerNm
+		모델명 : goodsModelNo
+		짧은 설명 : shortDescription
+		regexp==> 사용법 단어|단어|단어
+		-->
+
+		
+		<select id="cateSubList" resultType="com.team.domain.ListDTO" parameterType="hashmap">
+			
+			<include refid="AllList"></include> 
+			
+			<trim prefixOverrides="AND|OR" prefix="WHERE">
+					<if test="!value.equals('') and value!=null">
+					AND goodsNm regexp #{value}
+					</if>
+					<if test="level.equalsIgnoreCase('A')">
+					AND cateCode regexp #{cateCode}
+					</if>
+					<if test="level.equalsIgnoreCase('B')">
+					AND cateCode regexp #{cateCode}
+					</if>
+					<if test="!subKeyword.equals('') and subKeyword!=null">
+					AND goodsNm LIKE CONCAT('%',#{subKeyword},'%')
+					</if>
+					
+					<if test="sprice!=0 or eprice!=10000000">
+					AND goodsPrice between #{sprice} and #{eprice}
+					</if>
+			</trim>
+					order by ${searchType}
+				limit #{pageDTO.startRow},#{pageDTO.pageSize} 
+		</select>
+		
+
+		<!-- sub_Best 인기순 주문량+리뷰-->
+		<select id="getBestList" resultType="com.team.domain.ListDTO" > 
+			<include refid="AllList"></include>  
+			order by orderCnt desc,reviewCnt desc 
+			 limit 1,10
+		</select >
+		
+		<!-- sub_new -->
+		<select id="getNewList" resultType="com.team.domain.ListDTO"> 
+		<include refid="AllList"></include>  where salesStartYmd>last_day(now()-interval 1 month) 
+		order by goodsNo desc limit #{startRow} ,#{pageSize}
+		</select > 
+		
+		<!-- 리스트 끝  -->
+		
+		<!-- 상세페이지 -->
+		<select id="goodsView" resultType="com.team.domain.ListDTO">
+			select * from product where goodsNo=#{goodsNo}
+		</select>
+		
+		<!-- 카운팅    
+		1.CountSearch:검색창카운팅 
+		2.CountAll : 전체 리스트
+		3.CountcategoryListA :카테고리 대
+		4. CountcategoryListB: 카테고리소                                   -->
+		
+		<!-- 검색창카운팅 -->
+		<select id="Count" resultType="java.lang.Integer" parameterType="hashmap">
+		
+			select count(*) from product
+			<trim prefixOverrides="AND|OR" prefix="WHERE">
+					<if test="!value.equals('') and value!=null">
+					AND goodsNm regexp #{value}
+					</if>
+					<if test="level.equalsIgnoreCase('A')">
+						AND cateCode regexp #{cateCode}
+					</if>
+					<if test="level.equalsIgnoreCase('B')">
+						AND cateCode regexp #{cateCode}
+					</if>
+					<if test="!subKeyword.equals('') and subKeyword!=null">
+					AND goodsNm LIKE CONCAT('%',#{subKeyword},'%')
+					</if>
+					
+					<if test="sprice!=0 or eprice!=10000000">
+					AND goodsPrice between #{sprice} and #{eprice}
+					</if>
+			</trim>
+		</select>
+		
+		
+		
+		<!-- 뉴리스트 -->
+		<select id="Newcount" resultType="java.lang.Integer" >
+			select count(*) from product
+			 where salesStartYmd>last_day(now()-interval 1 month) 
+		</select>
+		<!-- 뉴리스트 -->
+		<select id="Bestcount" resultType="java.lang.Integer" >
+			select count(*) from product
+		</select>
+		<!-- 카운팅 끝 -->
+  	
+</mapper>

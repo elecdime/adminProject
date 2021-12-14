@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.mappers.AProductMapper">
+
+
+	<select id="productList"
+		resultType="com.team.domain.AProductDTO">
+	select 
+		p.goodsNo,
+		p.goodsNm,
+		c.cateCode,
+		c.cateName,
+		c.cateCodeRef,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		p.cateCode,
+		goodsMustInfo,
+		gdsThumbImg,
+		imagePath,
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
+		
+		memo
+	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
+		<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where p.goodsNo LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where p.goodsNm LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where c.cateName LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
+	
+		 order
+		by goodsNo desc limit  #{startRow}, #{pageSize}
+
+	</select>
+
+
+	<select id="getProductCount" resultType="java.lang.Integer">
+		select count(*) from
+		product
+		<if test="type != null">
+				<choose>
+					<when test="type == 'num'">
+					where p.goodsNo LIKE CONCAT(#{content})
+					</when>
+					<when test="type == 'name'">
+					where p.goodsNm LIKE CONCAT('%',#{content},'%')
+					</when>
+					<when test="type == 'user'">
+					where c.cateName LIKE CONCAT('%',#{content},'%')
+					</when>
+				</choose>
+			</if>
+	</select>
+
+
+	<select id="category" resultType="com.team.domain.CartegoryDTO">
+		WITH recursive cte AS (
+		SELECT
+		cateName, cateCode, cateCodeRef, 1 AS level
+		FROM goods_category
+		WHERE
+		cateCodeRef IS null
+		UNION all
+		SELECT p.cateName, p.cateCode,
+		p.cateCodeRef, 1 + LEVEL AS level
+		FROM goods_category p
+		INNER JOIN cte
+		ON p.cateCodeRef = cte.cateCode
+		)
+		SELECT cateName, cateCode,
+		cateCodeRef, LEVEL FROM cte;
+	</select>
+	<select id = "auto" resultType="java.lang.Integer">
+	SELECT goodsNo FROM product ORDER BY goodsNo DESC LIMIT 1;
+	</select>
+	
+	<insert id="insertProduct">
+		INSERT INTO product
+		(
+		goodsNo,
+		goodsNm,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		cateCode,
+		goodsMustInfo,
+		gdsThumbImg,
+		imagePath,
+		
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
+		
+		memo
+		) VALUES
+		(
+		(SELECT max(goodsNo)+1 from product ALIAS_FOR_SUBQUERY),
+		#{goodsNm},
+		#{makerNm},
+		#{originNm},
+		#{goodsModelNo},
+		#{makeYmd},
+		#{totalStock},
+		#{fixedPrice},
+		#{goodsPrice},
+		#{regDt},
+		#{modDt},
+		#{cateCode},
+		#{goodsMustInfo},
+		#{gdsThumbImg},
+		#{imagePath},
+		
+		#{goodsWeight},
+		now(),
+		#{shortDescription},
+		#{goodsDescription},
+		
+		#{memo}
+		
+		
+		)
+
+
+	</insert>
+	<select id="productView" resultType="com.team.domain.ProductViewDTO">
+	select 
+		p.goodsNo,
+		p.goodsNm,
+		c.cateCode,
+		c.cateName,
+		c.cateCodeRef,
+		makerNm,
+		originNm,
+		goodsModelNo,
+		makeYmd,
+		totalStock,
+		fixedPrice,
+		goodsPrice,
+		regDt,
+		modDt,
+		p.cateCode,
+		goodsMustInfo,
+		gdsThumbImg,
+		imagePath,
+		goodsWeight,
+		salesStartYmd,
+		shortDescription,
+		goodsDescription,
+		
+		memo
+	from product p INNER JOIN goods_category c ON p.cateCode = c.cateCode
+		WHERE p.goodsNo =#{goodsNo}
+	</select>
+
+
+<delete id="goodsDelete">
+ delete
+  from product
+ where goodsNo = #{goodsNo}
+</delete>
+<update id ="productUpdate">
+		UPDATE product set
+		goodsNm =#{goodsNm},
+		makerNm =#{makerNm},
+		originNm=#{originNm},
+		goodsModelNo =#{goodsModelNo},
+		makeYmd =#{makeYmd},
+		totalStock =#{totalStock},
+		fixedPrice  =#{fixedPrice},
+		goodsPrice = #{goodsPrice},
+		modDt =#{modDt},
+		cateCode =#{cateCode},
+		goodsMustInfo =#{goodsMustInfo},
+		gdsThumbImg =#{gdsThumbImg},
+		imagePath =#{imagePath},
+		
+		goodsWeight =#{goodsWeight},
+
+		shortDescription =#{shortDescription},
+		goodsDescription=#{goodsDescription},
+		
+		memo=#{memo}
+		WHERE goodsNo =${goodsNo}
+
+</update>
+</mapper>

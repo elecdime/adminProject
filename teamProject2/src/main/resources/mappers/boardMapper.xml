@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mapper.BoardMapper">
+
+	<insert id="insertBoard">
+		insert into notice(ntcNo,memId,ntcTitle,ntcCont,ntcHit,regDt,ntcFile,chgDt, ntc_type) 
+		values(#{ntcNo},#{memId},#{ntcTitle},#{ntcCont},#{ntcHit},#{regDt},#{ntcFile},#{chgDt}, #{ntc_type})
+	</insert>
+
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(ntcNo) from notice
+	</select>
+	
+	<select id="getBoardList" resultType="com.team.domain.BoardDTO">
+		select * from notice where ntc_type = 1 order by ntcNo desc limit #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from notice where ntc_type = 1
+	</select>
+	
+	<select id="getBoard" resultType="com.team.domain.BoardDTO" parameterType="int">
+	  select * from notice WHERE ntcNo = #{ntcNo}
+	</select>
+
+
+	<delete id="deleteBoard" parameterType="int">
+		delete from notice WHERE ntcNo = #{ntcNo}
+	</delete>
+	
+	<update id="updateBoard">
+        update notice set ntcTitle=#{ntcTitle},ntcCont=#{ntcCont}, ntcFile=#{ntcFile}
+        where ntcNo=#{ntcNo}
+    </update>
+    
+    <select id="getBoardList2" resultType="com.team.domain.BoardDTO">
+		select * from notice where ntc_type = 2 order by ntcNo desc limit #{startRow}, #{pageSize}
+	</select>
+
+	<select id="getBoard2" resultType="com.team.domain.BoardDTO" parameterType="int">
+	  select * from notice WHERE (ntcNo = #{ntcNo} AND ntc_type = 2)
+	</select>
+	
+	
+	<select id="getBoardCount2" resultType="java.lang.Integer">
+		select count(*) from notice where ntc_type = 2
+	</select>
+ 
+</mapper>

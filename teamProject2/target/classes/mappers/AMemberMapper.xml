@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mappers.AMemberMapper">
+	
+	<select id="memberList" resultType="com.team.domain.AMemberDTO">
+		select * from member
+	</select>
+	<select id="blackList" resultType="com.team.domain.AMemberDTO">
+		select * from member
+		where memberFl = 'black'
+	</select> 
+    
+    <select id="memberInfo" resultType="com.team.domain.AMemberDTO">
+    	select * from member where memId = #{memId}
+    </select>
+    
+    <select id="memberCount" resultType="int">
+    	select count(*) from member
+    
+    </select>
+    
+    <select id="searchMemberList" resultType="com.team.domain.AMemberDTO">
+    	select *
+    	from member
+    	where ${searchCulumn} like concat('%',#{searchText},'%')
+    </select>
+    
+    <select id="membersOrder" resultType="com.team.domain.AMemberDTO">
+    	select *
+    	from orders
+    	where memId = #{memId}
+    </select>
+    
+    <select id="membersOrderCount" resultType="int">
+    	select count(*)
+    	from orders
+    	where memId = #{memId}
+    
+    </select>
+    
+    <update id="insertBlack">
+    	update member
+    	set memberFl = 'black', blackReason = #{blackReason}
+    	where memId = #{memId}
+    </update>
+    
+    <update id="resetBlack">
+    	update member
+    	set memberFl = 'personal', blackReason=null
+    	where memId = #{memId}
+    </update>
+    
+    <select id="searchBlackList" resultType="com.team.domain.AMemberDTO">
+    	select *
+    	from member
+    	where memberFl = 'black'
+    </select>
+    
+</mapper>

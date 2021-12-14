@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.team.mappers.AEventMapper">
+	
+    <insert id="insertCoupon">
+   		 insert into coupon
+		 values(#{code},#{type},#{discountPer},#{discountNum},#{gift},#{mileage},#{name},#{giveDate},#{endDate},#{useable},#{benefit})
+    </insert>
+    
+    <select id="getCoupon" resultType="com.team.domain.AEventDTO">
+    	select *
+    	from coupon
+    	where code = #{code}
+    </select>
+    
+    <select id="couponList" resultType="com.team.domain.AEventDTO">
+    	select c.code as code, c.type as type, c.discountPer as discountPer, c.discountNum as discountNum,
+    		c.gift as gift, c.mileage as mileage, c.name as name, c.giveDate as giveDate, c.endDate as endDate, c.useable as useable,
+    		c.benefit as benefit, p.goodsNm as goodsNm
+    	from coupon c join product p
+    	on c.gift = p.goodsNo
+    	
+    	union
+    	
+    	select code, type, discountPer, discountNum, gift ,mileage, name, giveDate, endDate, useable, benefit, 0 as goodsNm
+    	from coupon
+    	where type != '3'
+    	order by code desc
+    	limit #{startRow},#{pageSize}
+    	
+    </select>
+    
+    <select id="couponListNoPage" resultType="com.team.domain.AEventDTO">
+    	select c.code as code, c.type as type, c.discountPer as discountPer, c.discountNum as discountNum,
+    		c.gift as gift, c.mileage as mileage, c.name as name, c.giveDate as giveDate, c.endDate as endDate, c.useable as useable,
+    		c.benefit as benefit, p.goodsNm as goodsNm
+    	from coupon c join product p
+    	on c.gift = p.goodsNo
+    	
+    	union
+    	
+    	select code, type, discountPer, discountNum, gift, mileage, name, giveDate, endDate, useable, benefit, 0 as goodsNm
+    	from coupon
+    	where type != '3'
+    	order by code desc 
+    	
+    </select>
+    
+<!--     <select id="couponList" resultType="com.team.domain.AEventDTO"> -->
+<!-- 		select code, type, discountPer, discountNum, gift, name, giveDate, endDate, useable, benefit -->
+<!-- 	    <choose> -->
+<!-- 		    <when test="type != 3"> -->
+<!-- 										 ,0 as goodsNm -->
+<!-- 		    	from coupon  -->
+<!-- 		    </when> -->
+<!-- 		    <otherwise> -->
+<!-- 		    						,p.goodsNm as goodsNm -->
+<!-- 		    	from coupon c join product p -->
+<!-- 		    	on c.gift = p.goodsNo -->
+<!-- 		    </otherwise> -->
+<!-- 	  	</choose> -->
+<!-- 		    	order by code desc -->
+<!--     </select> -->
+    
+    
+    
+    <select id="searchCouponList" resultType="com.team.domain.AEventDTO">
+		select code, type, discountPer, discountNum, gift, mileage,  name, giveDate, endDate, useable, benefit
+	    <choose>
+		    <when test="type != 3">
+										 ,0 as goodsNm
+		    	from coupon 
+		    </when>
+		    <when test="type = 3">
+										,p.goodsNm as goodsNm
+		    	from coupon c join product p
+		    	on c.gift = p.goodsNo
+		    </when>
+	  	</choose>
+		    	where ${searchCulumn} like concat('%',#{searchText},'%') 
+		    	order by code desc
+
+    </select>
+    
+    <select id="all_couponList" resultType="com.team.domain.AEventDTO">
+    	select memId, giveCode, coupon_code, name, type, benefit, a.useable as "useable", giveDate, endDate
+    	from all_coupon a join coupon c
+    	on  a.coupon_code = c.code
+    	order by giveCode desc limit #{startRow},#{pageSize}
+    	
+    </select>
+    
+    <select id="all_couponListNoPage" resultType="com.team.domain.AEventDTO">
+    	select memId, giveCode, coupon_code, name, type, benefit, a.useable as "useable", giveDate, endDate
+    	from all_coupon a join coupon c
+    	on  a.coupon_code = c.code
+    	order by giveCode desc
+    	
+    </select>
+    
+    <select id="searchAll_couponList" resultType="com.team.domain.AEventDTO">
+		select memId, giveCode, coupon_code, name, type, benefit, a.useable as "useable", giveDate, endDate
+		from all_coupon a join coupon c
+    	on  a.coupon_code = c.code
+    	where ${searchCulumn} like concat('%',#{searchText},'%')
+    	order by giveCode desc
+    	
+    </select>
+    
+    <select id="getMaxCoupon" resultType="int">
+    	select max(code) from coupon
+    </select>
+    
+    <select id="getMaxAll_coupon" resultType="int">
+    	select max(giveCode) from all_coupon
+    </select>
+    
+    <update id="useableUpdate">
+    	update coupon set useable = #{useable} where code = #{code}
+    </update>
+    
+    <update id="ac_useableUpdate">
+    	update all_coupon set useable = #{useable} where coupon_code = #{code}
+    </update>
+    
+    <insert id="giveCoupon">
+    	insert into all_coupon(memId, coupon_code, useable, giveCode)
+	    values (#{memId},#{code},#{useable}, #{giveCode})
+    </insert>
+    
+    <delete id="deleteCoupon">
+    	delete from coupon
+    	where code = #{code}
+    </delete>
+    
+    <delete id="deleteAll_coupon">
+	    delete from all_coupon
+	    where  giveCode = #{giveCode}
+    </delete>
+    
+    <select id="getMemberList" resultType="com.team.domain.AEventDTO">
+    	select memId from member
+    
+    </select>
+    
+    <select id="getCouponCount" resultType="int">
+    	select count(*) from coupon
+    
+    </select>
+    
+    <select id="getAll_couponCount" resultType="int">
+    	select count(*) from all_coupon
+    </select>
+    
+    
+    <select id="giveCouponSearch" resultType="com.team.domain.AEventDTO">
+    	select memId
+    	from member
+		where memId like concat('%',#{searchText},'%')
+    </select>
+    
+    <select id="giveCouponSearch_coup" resultType="com.team.domain.AEventDTO">
+    	select name, code
+    	from coupon
+		where name like concat('%',#{searchText},'%')
+    </select>
+    
+    <select id="delCouponSearch" resultType="com.team.domain.AEventDTO">
+    	select name, code
+    	from coupon
+		where name like concat('%',#{searchText},'%')
+    </select>
+    
+</mapper>
